@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class SpiderController2 : MonoBehaviour
 {
     [HideInInspector] public Rigidbody _playerRigidbody;
 
@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
             {
                 canJump = false;
 
-                transform.GetChild(0).GetChild(0).GetComponent<SpiderProceduralAnim>().enabled = false;
+                transform.GetChild(0).GetChild(0).GetComponent<SpiderProceduralAnimation>().enabled = false;
 
                 JumpMechanic();
 
@@ -296,7 +296,7 @@ public class PlayerController : MonoBehaviour
     {
         canJump = true;
 
-        transform.GetChild(0).GetChild(0).GetComponent<SpiderProceduralAnim>().enabled = true;
+        transform.GetChild(0).GetChild(0).GetComponent<SpiderProceduralAnimation>().enabled = true;
     }
 
     //Adds a delay to exit the permacrouch state
