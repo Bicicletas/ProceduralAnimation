@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpiderController2 : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
+    [SerializeField] GameObject cam;
+
     [HideInInspector] public Rigidbody _playerRigidbody;
 
     [SerializeField] private Animator _rotationAnimator;
@@ -47,7 +49,7 @@ public class SpiderController2 : MonoBehaviour
     private bool canWallJump;
 
     [Header("Gravity Modifier\n")]
-    [SerializeField] private float wallGrav = -1f;
+    //[SerializeField] private float wallGrav = -1f;
     public float normalGrav = -10f;
 
     [SerializeField] private AudioSource _sfxAudioSource;
@@ -59,11 +61,12 @@ public class SpiderController2 : MonoBehaviour
     private float tenthOfUnit = .1f;
     private float normalForceMulti = 10f;
     private float runningForceMulti = 14f;
-    private float runningFov = 6f;
-    private float wallJumpMulti = .8f;
+    //private float runningFov = 6f;
+    //private float wallJumpMulti = .8f;
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         _playerRigidbody = GetComponent<Rigidbody>();
 
       
@@ -75,6 +78,8 @@ public class SpiderController2 : MonoBehaviour
 
     private void Update()
     {
+        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, cam.transform.eulerAngles.y, transform.eulerAngles.z);
+
         //Restricting the movement of the player with a boolean
         if (canMove)
         {
@@ -108,7 +113,7 @@ public class SpiderController2 : MonoBehaviour
 
     private void LateUpdate()
     {
-        
+        /*
         if (_rotationAnimator.enabled)
         {
             x = Mathf.Lerp(x, horizontalInput, Time.deltaTime * lerpSpeed);
@@ -142,6 +147,7 @@ public class SpiderController2 : MonoBehaviour
                 Invoke(nameof(ResetVInput), 0.2f);
             }
         }
+        */
         /*
         if(horizontalInput != 0 || verticalInput != 0)
         {
@@ -191,7 +197,7 @@ public class SpiderController2 : MonoBehaviour
             {
                 canJump = false;
 
-                transform.GetChild(0).GetChild(0).GetComponent<SpiderProceduralAnimation>().enabled = false;
+                //transform.GetChild(0).GetChild(0).GetComponent<SpiderProceduralAnimation>().enabled = false;
 
                 JumpMechanic();
 
@@ -283,6 +289,7 @@ public class SpiderController2 : MonoBehaviour
     }
 
     //When called this function adds an upwards force to the player and a force in the opposite directon of the wall that is collideing
+    /*
     void WallJumpMechanic()
     {
         _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, 0f, _playerRigidbody.velocity.z);
@@ -290,13 +297,13 @@ public class SpiderController2 : MonoBehaviour
         _playerRigidbody.AddForce(wallJumpDir * jumpForce * wallJumpMulti, ForceMode.Impulse);
         _playerRigidbody.AddForce(Vector3.up * jumpForce * wallJumpMulti, ForceMode.Impulse);
     }
-
+    */
     //When called set the ability to jump to true
     void JumpReset()
     {
         canJump = true;
 
-        transform.GetChild(0).GetChild(0).GetComponent<SpiderProceduralAnimation>().enabled = true;
+        //transform.GetChild(0).GetChild(0).GetComponent<SpiderProceduralAnimation>().enabled = true;
     }
 
     //Adds a delay to exit the permacrouch state
