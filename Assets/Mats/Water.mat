@@ -49,6 +49,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Depth_Fade: 20
+    - _Flat_Shaded: 0
     - _FoamWidth: 2.27
     - _Height: 0.0065
     - _Noise_Scale: 5
