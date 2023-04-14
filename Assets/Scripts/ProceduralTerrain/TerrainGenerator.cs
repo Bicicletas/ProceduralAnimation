@@ -38,13 +38,14 @@ public class TerrainGenerator : MonoBehaviour
 
 	void Update()
 	{
+		
 		viewerPosition = new Vector2(viewer.position.x, viewer.position.z);
 
 		if (viewerPosition != viewerPositionOld)
 		{
 			foreach (TerrainChunk chunk in visibleTerrainChunks)
 			{
-				chunk.UpdateCollisionMesh();
+				//chunk.UpdateCollisionMesh();
 			}
 		}
 
@@ -53,6 +54,7 @@ public class TerrainGenerator : MonoBehaviour
 			viewerPositionOld = viewerPosition;
 			UpdateVisibleChunks();
 		}
+		
 	}
 
 	void UpdateVisibleChunks()

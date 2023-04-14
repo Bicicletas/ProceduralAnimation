@@ -14,8 +14,13 @@ public class WaterGenerator : MonoBehaviour
 
         foreach (MeshCollider m in terrainChunks)
         {
-            if(m.transform.childCount == 0 && m.gameObject.activeSelf)
+            MeshFilter mf = m.gameObject.GetComponent<MeshFilter>();
+
+            m.sharedMesh = mf.sharedMesh;
+
+            if (m.transform.childCount == 0 && m.gameObject.activeSelf)
             {
+
                 GameObject instance = Instantiate(waterChunk, new Vector3(m.transform.position.x, waterChunk.transform.position.y, m.transform.position.z), waterChunk.transform.rotation);
 
                 instance.transform.parent = m.transform;

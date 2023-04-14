@@ -67,6 +67,7 @@ public class TerrainChunk
 
 		maxViewDst = detailLevels[detailLevels.Length - 1].visibleDstThreshold;
 
+		//meshCollider.sharedMesh = meshFilter.sharedMesh;
 	}
 
 	public void Load()

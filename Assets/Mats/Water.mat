@@ -49,13 +49,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _Depth_Fade: 20
-    - _Flat_Shaded: 0
+    - _Flat_Shaded: 1
     - _FoamWidth: 2.27
     - _Height: 0.0065
     - _Noise_Scale: 5
+    - _Normal_Strenght: 0.08
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 1
+    - _Smoothness: 0.7
     - _Water_Scroll_Speed: 0.1
     m_Colors:
     - _Deep: {r: 0.074136704, g: 0.1892251, b: 0.3207547, a: 1}
