@@ -18,7 +18,7 @@ public class WaterGenerator : MonoBehaviour
 
             m.sharedMesh = mf.sharedMesh;
 
-            if (m.transform.childCount == 0 && m.gameObject.activeSelf)
+            if (m.transform.childCount == 0 && m.gameObject.activeSelf && m.gameObject.name == "Terrain Chunk")
             {
 
                 GameObject instance = Instantiate(waterChunk, new Vector3(m.transform.position.x, waterChunk.transform.position.y, m.transform.position.z), waterChunk.transform.rotation);

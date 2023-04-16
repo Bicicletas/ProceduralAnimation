@@ -25,7 +25,7 @@ Material:
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -88,7 +88,7 @@ Material:
     - _Rocks2Height: 42.2
     - _SandHeight: 5.22
     - _SandTXT_Tile: 0.15
-    - _Smoothnes: 0.3
+    - _Smoothnes: 0
     - _SnowHeight: 58
     - _SnowTXT_Tile: 0.07
     - _StoneHeight: 7.14

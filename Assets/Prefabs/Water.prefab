@@ -666,32 +666,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023a5cb0df7b81e4d9fa75cdfde28b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnDelay: 0.8
+  sizeOffset: 50
+  rayOriginY: 80
   settings:
-  - name: Tree
-    sizeOffset: 50
-    numOfTrees: 100
-    rayOriginY: 80
+  - objectName: Tree
+    numOfObject: 100
     whatIsGround:
       serializedVersion: 2
       m_Bits: 64
-    minTreeSpawnThreshold: 15
-    maxTreeSpawnThreshold: 25
-    treeSpawnOffsetY: 1
-    spawnDelay: 0.8
-    tree: {fileID: 8416138533978176877, guid: 14e2e22c05983d94faa411bc60a060f0, type: 3}
+    minObjectSpawnThreshold: 15
+    maxObjectSpawnThreshold: 22
+    objectSpawnOffsetY: 1
+    objects:
+    - {fileID: 5722818245484301035, guid: c7a570ee088eebe469bfa1dda72e6f1a, type: 3}
     positions: []
-  - name: Rock
-    sizeOffset: 50
-    numOfTrees: 50
-    rayOriginY: 80
+  - objectName: Rock
+    numOfObject: 40
     whatIsGround:
       serializedVersion: 2
       m_Bits: 64
-    minTreeSpawnThreshold: 15
-    maxTreeSpawnThreshold: 25
-    treeSpawnOffsetY: 1
-    spawnDelay: 0.8
-    tree: {fileID: 7363343591603192161, guid: 5abf2e1c328fa5449961be04bdff4236, type: 3}
+    minObjectSpawnThreshold: 10
+    maxObjectSpawnThreshold: 50
+    objectSpawnOffsetY: 1
+    objects:
+    - {fileID: 4599203050603867068, guid: 5abf2e1c328fa5449961be04bdff4236, type: 3}
+    positions: []
+  - objectName: Grass
+    numOfObject: 600
+    whatIsGround:
+      serializedVersion: 2
+      m_Bits: 64
+    minObjectSpawnThreshold: 10
+    maxObjectSpawnThreshold: 22
+    objectSpawnOffsetY: 0.3
+    objects:
+    - {fileID: 8987899206551929117, guid: ce8c64238149bf348a67c4ba213b65b7, type: 3}
     positions: []
 --- !u!1 &1033887334120776259
 GameObject:

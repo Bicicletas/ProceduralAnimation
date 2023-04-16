@@ -5,28 +5,21 @@ using UnityEngine;
 public class TreeGenerator : MonoBehaviour
 {
     [SerializeField] float spawnDelay = 0.8f;
+    [SerializeField] float sizeOffset = 50;
+    [SerializeField] float rayOriginY = 80;
+
 
     [System.Serializable]
     public class Settings
     {
-        public string name;
-        public float sizeOffset;
-        public int numOfTrees;
-        public float rayOriginY = 60;
+        public string objectName;
+        public int numOfObject;
         public LayerMask whatIsGround;
-        public float minTreeSpawnThreshold;
-        public float maxTreeSpawnThreshold;
-        public float treeSpawnOffsetY = 0.1f;
-        public GameObject tree;
+        public float minObjectSpawnThreshold;
+        public float maxObjectSpawnThreshold;
+        public float objectSpawnOffsetY = 0.1f;
+        public GameObject[] objects;
         [HideInInspector] public List<Vector3> positions = new List<Vector3>();
-
-        public Vector2 RandomPos(Vector3 parentPos)
-        {
-            float x = Random.Range(parentPos.x - sizeOffset, parentPos.x + sizeOffset);
-            float z = Random.Range(parentPos.z - sizeOffset, parentPos.z + sizeOffset);
-
-            return new Vector2(x, z);
-        }
 
         public float RandomRotation()
         {
@@ -34,16 +27,31 @@ public class TreeGenerator : MonoBehaviour
 
             return angle;
         }
+
+        public int RandomIndex()
+        {
+            int index = Random.Range(0, objects.Length);
+
+            return index;
+        }
     }
 
     [SerializeField] Settings[] settings;
 
     private void Start()
     {
-        Invoke(nameof(GenerateTrees), spawnDelay);
+        Invoke(nameof(GenerateObjects), spawnDelay);
     }
 
-    void GenerateTrees()
+    Vector2 RandomPos(Vector3 parentPos)
+    {
+        float x = Random.Range(parentPos.x - sizeOffset, parentPos.x + sizeOffset);
+        float z = Random.Range(parentPos.z - sizeOffset, parentPos.z + sizeOffset);
+
+        return new Vector2(x, z);
+    }
+
+    void GenerateObjects()
     {
         /*
         for (int i = 0; i < numOfTrees; i++)
@@ -62,19 +70,19 @@ public class TreeGenerator : MonoBehaviour
         */
         foreach(Settings s in settings)
         {
-            for (int i = 0; i < s.numOfTrees; i++)
+            for (int i = 0; i < s.numOfObject; i++)
             {
-                s.positions.Add(new Vector3(s.RandomPos(transform.parent.position).x, s.rayOriginY, s.RandomPos(transform.parent.position).y));
+                s.positions.Add(new Vector3(RandomPos(transform.parent.position).x, rayOriginY, RandomPos(transform.parent.position).y));
 
                 RaycastHit hit;
 
                 if (Physics.Raycast(s.positions[i], Vector3.down, out hit, 100f, s.whatIsGround))
                 {
-                    if (hit.point.y > s.minTreeSpawnThreshold && hit.point.y < s.maxTreeSpawnThreshold)
+                    if (hit.point.y > s.minObjectSpawnThreshold && hit.point.y < s.maxObjectSpawnThreshold)
                     {
-                        GameObject tree = s.tree;
+                        GameObject @object = s.objects[s.RandomIndex()];
 
-                        GameObject instance = Instantiate(tree, new Vector3(hit.point.x, hit.point.y - s.treeSpawnOffsetY, hit.point.z), Quaternion.Euler(tree.transform.eulerAngles.x, tree.transform.eulerAngles.y + s.RandomRotation(), tree.transform.eulerAngles.z));
+                        GameObject instance = Instantiate(@object, new Vector3(hit.point.x, hit.point.y - s.objectSpawnOffsetY, hit.point.z), Quaternion.Euler(@object.transform.eulerAngles.x, @object.transform.eulerAngles.y + s.RandomRotation(), @object.transform.eulerAngles.z));
 
                         instance.transform.parent = hit.transform;
                     }

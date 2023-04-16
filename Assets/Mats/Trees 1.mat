@@ -12,9 +12,9 @@ Material:
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 1
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -46,7 +46,7 @@ Material:
     - _Color1: {r: 0.08926664, g: 0.3207547, b: 0.124340616, a: 0}
     - _Color2: {r: 0.21444455, g: 0.745283, b: 0.22709256, a: 0}
     - _Leaves1: {r: 0.29803923, g: 0.43529415, b: 0.20392159, a: 1}
-    - _Leaves2: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
+    - _Leaves2: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
     - _Trunk_Color: {r: 0.29799187, g: 0.4339623, b: 0.20265219, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6830209001028423899
