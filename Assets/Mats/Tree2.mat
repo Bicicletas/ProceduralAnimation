@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Trees
+  m_Name: Tree2
   m_Shader: {fileID: -6465566751694194690, guid: 29a5abb805839d846b030d0972412b6a,
     type: 3}
   m_ValidKeywords: []
@@ -36,12 +36,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _DepthFade: 3
-    - _Leaves1_Height: 3.02
-    - _Leaves2_Height: 3.21
+    - _Leaves1_Height: 5.25
+    - _Leaves2_Height: 6.54
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 0.3
-    - _Trunk_Height: 1.65
+    - _Smoothness: 0.05
+    - _Trunk_Height: 3.09
     m_Colors:
     - _Color1: {r: 0.08926664, g: 0.3207547, b: 0.124340616, a: 0}
     - _Color2: {r: 0.21444455, g: 0.745283, b: 0.22709256, a: 0}

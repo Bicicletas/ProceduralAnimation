@@ -671,18 +671,20 @@ MonoBehaviour:
   rayOriginY: 80
   settings:
   - objectName: Tree
-    numOfObject: 100
+    numOfObject: 45
     whatIsGround:
       serializedVersion: 2
       m_Bits: 64
-    minObjectSpawnThreshold: 15
-    maxObjectSpawnThreshold: 22
-    objectSpawnOffsetY: 1
+    minObjectSpawnThreshold: 11
+    maxObjectSpawnThreshold: 23
+    objectSpawnOffsetY: 1.2
     objects:
-    - {fileID: 5722818245484301035, guid: c7a570ee088eebe469bfa1dda72e6f1a, type: 3}
+    - {fileID: 6080974392840025516, guid: 45024a55aa513c24f9159300274c9cc2, type: 3}
+    - {fileID: 7245692382038933829, guid: 76c3de3b004af8442be38949cdf463a0, type: 3}
+    - {fileID: 7648719581311487906, guid: 36aa4770febcb17468cb9d94873eb01c, type: 3}
     positions: []
   - objectName: Rock
-    numOfObject: 40
+    numOfObject: 0
     whatIsGround:
       serializedVersion: 2
       m_Bits: 64
@@ -693,15 +695,16 @@ MonoBehaviour:
     - {fileID: 4599203050603867068, guid: 5abf2e1c328fa5449961be04bdff4236, type: 3}
     positions: []
   - objectName: Grass
-    numOfObject: 600
+    numOfObject: 250
     whatIsGround:
       serializedVersion: 2
       m_Bits: 64
     minObjectSpawnThreshold: 10
-    maxObjectSpawnThreshold: 22
-    objectSpawnOffsetY: 0.3
+    maxObjectSpawnThreshold: 23
+    objectSpawnOffsetY: 0.22
     objects:
     - {fileID: 8987899206551929117, guid: ce8c64238149bf348a67c4ba213b65b7, type: 3}
+    - {fileID: 8987899206551929117, guid: 522462d1c5d6ca04e991fdf38819f063, type: 3}
     positions: []
 --- !u!1 &1033887334120776259
 GameObject:

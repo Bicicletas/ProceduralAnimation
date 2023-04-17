@@ -35,7 +35,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Grass_Texture:
-        m_Texture: {fileID: 2800000, guid: b767f66c3df50da4bbbd467dcd070724, type: 3}
+        m_Texture: {fileID: 2800000, guid: b35a088fcead66f48b326eb504cde549, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Rocks1_Texture:
@@ -59,7 +59,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Water_Texture:
-        m_Texture: {fileID: 2800000, guid: 13562799ac2cb9441881d86eb27c82df, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3b82fad51d7048143b3fb34c331129b2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -76,7 +76,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _GrassHeight: 9.76
+    - _GrassHeight: 8.5
     - _GrassTXT_Tile: 0.06
     - _NoiseMultiplier: -1.43
     - _NoiseSpeed: 0.03
@@ -84,18 +84,24 @@ Material:
     - _QueueOffset: 0
     - _Rock1TXT_Tile: 0.05
     - _Rock2TXT_Tile: 0.03
-    - _Rocks1Height: 28.1
+    - _Rocks1Height: 40
     - _Rocks2Height: 42.2
-    - _SandHeight: 5.22
+    - _SandHeight: 3
     - _SandTXT_Tile: 0.15
     - _Smoothnes: 0
     - _SnowHeight: 58
     - _SnowTXT_Tile: 0.07
-    - _StoneHeight: 7.14
-    - _StoneTXT_Tile: 0.08
+    - _StoneHeight: 7
+    - _StoneTXT_Tile: 0.023
     - _UseNoise: 1
     - _WaterHeight: 1.03
-    - _WaterTXT_Tile: 0.11
+    - _WaterTXT_Tile: 0.03
     m_Colors:
     - _BaseColor: {r: 0.495283, g: 0.78404033, b: 1, a: 0}
+    - _GrassTint: {r: 1, g: 1, b: 1, a: 0}
+    - _RockTint: {r: 1, g: 1, b: 1, a: 0}
+    - _SandTint: {r: 1, g: 1, b: 1, a: 0}
+    - _SnowTint: {r: 1, g: 1, b: 1, a: 0}
+    - _StoneTint: {r: 1, g: 1, b: 1, a: 0}
+    - _WaterTint: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

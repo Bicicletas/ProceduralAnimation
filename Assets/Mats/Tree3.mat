@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4701405108527688212
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water
-  m_Shader: {fileID: -6465566751694194690, guid: eec5fcd4ac663c547a77aa64810b4f8d,
+  m_Name: Tree3
+  m_Shader: {fileID: -6465566751694194690, guid: 29a5abb805839d846b030d0972412b6a,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -48,18 +35,30 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Depth_Fade: 20
-    - _Flat_Shaded: 1
-    - _FoamWidth: 2.27
-    - _Height: 0.0065
-    - _Noise_Scale: 5
-    - _Normal_Strenght: 0.13
+    - _DepthFade: 3
+    - _Leaves1_Height: 3.02
+    - _Leaves2_Height: 3.21
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 0.7
-    - _Water_Scroll_Speed: 0.1
+    - _Smoothness: 0.05
+    - _Trunk_Height: 3.15
     m_Colors:
-    - _Deep: {r: 0.074136704, g: 0.1892251, b: 0.3207547, a: 1}
-    - _Foam_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Shallow: {r: 0.13333334, g: 0.3529412, b: 0.6039216, a: 1}
+    - _Color1: {r: 0.08926664, g: 0.3207547, b: 0.124340616, a: 0}
+    - _Color2: {r: 0.21444455, g: 0.745283, b: 0.22709256, a: 0}
+    - _Leaves1: {r: 0.27190182, g: 0.31764707, b: 0.16078432, a: 1}
+    - _Leaves2: {r: 0.3127767, g: 0.31764707, b: 0.16078432, a: 1}
+    - _Trunk_Color: {r: 0.16981131, g: 0.0991967, b: 0, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &6830209001028423899
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

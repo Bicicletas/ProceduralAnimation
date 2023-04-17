@@ -21,13 +21,13 @@ public class PlayerController : MonoBehaviour
     [Header("Speed Parametres\n")]
     [SerializeField] private float force = 30f;
     [SerializeField] private float groundDrag = 10f;
+    [SerializeField] float rayOffset = .5f;
     [SerializeField] private float airMultiplyer;
 
-    public float horizontalInput;
-    public float verticalInput;
+    [HideInInspector] public float horizontalInput;
+    [HideInInspector] public float verticalInput;
 
-    public float x;
-    public float y;
+    public bool isWatered = false;
 
     public float lerpSpeed;
 
@@ -39,10 +39,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerHight;
 
     [SerializeField] private LayerMask whatIsGorund;
+    [SerializeField] private LayerMask whatIsWater;
 
     private bool canJump = true;
     [HideInInspector] public bool canSecondJump;
-     public bool isGrounded = true;
+    public bool isGrounded = true;
+
 
     private Vector3 wallJumpDir;
 
@@ -96,6 +98,12 @@ public class PlayerController : MonoBehaviour
                 _playerRigidbody.drag = oneUnit;
                 Physics.gravity = new Vector3(0, normalGrav, 0);
             }
+
+
+            if (!isWatered)
+            {
+                normalGrav = -12;
+            }
         }
     }
 
@@ -106,9 +114,18 @@ public class PlayerController : MonoBehaviour
         {
             MovePlayer();
         }
+        
 
         //Raycast that checks if the player is touching the ground
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
+        //isWatered = Physics.Raycast(transform.position, Vector3.down, (playerHight - 1) * halfUnit + tenthOfUnit, whatIsWater) || Physics.Raycast(transform.position, Vector3.up, 100, whatIsWater);
+
+        /*
+        isGrounded = Physics.Raycast(new Vector3(transform.position.x + rayOffset, transform.position.y, transform.position.z), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
+        isGrounded = Physics.Raycast(new Vector3(transform.position.x - rayOffset, transform.position.y, transform.position.z), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
+        isGrounded = Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
+        isGrounded = Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
+        */
     }
 
     private void LateUpdate()
@@ -203,6 +220,14 @@ public class PlayerController : MonoBehaviour
 
                 Invoke(nameof(JumpReset), jumpCooldown);
             }
+            else if (isWatered)
+            {
+                normalGrav = Mathf.Lerp(normalGrav, 10, Time.deltaTime * lerpSpeed);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            normalGrav = -12;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -316,4 +341,22 @@ public class PlayerController : MonoBehaviour
             GetComponent<CapsuleCollider>().height = dobleUnit;
         }
     }
+
+    void OnTriggerStay(Collider other)
+    {
+        if ((whatIsWater.value & (1 << other.transform.gameObject.layer)) > 0)
+        {
+            isWatered = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if ((whatIsWater.value & (1 << other.transform.gameObject.layer)) > 0)
+        {
+            isWatered = false;
+        }
+    }
+
+
 }
