@@ -52,16 +52,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Hieght_Color: 1
+    - _HorizonBlend: 0.01
     - _Leaves1_Height: 2.24
     - _Leaves2_Height: 0.62
+    - _NadirBlend: 4
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 0.1
+    - _Smoothness: 0
     - _Trunk_Height: 0
     - _Wind_Speed: 3
     - _Wind_Strength: 0.1
+    - _ZenithBlend: 1
     m_Colors:
     - _Albedo: {r: 0, g: 0.4528302, b: 0.31419948, a: 0}
+    - _Color1: {r: 0.3773585, g: 0.22138365, b: 0, a: 0}
+    - _Color2: {r: 0, g: 0.3773585, b: 0.10062893, a: 0}
+    - _Color3: {r: 0, g: 0.41509432, b: 0.11069181, a: 0}
     - _Leaves1: {r: 0.27058825, g: 0.3803922, b: 0.34509805, a: 0}
     - _Leaves2: {r: 0.34509805, g: 0.4901961, b: 0.3803922, a: 0}
     - _Trunk_Color: {r: 0.26666668, g: 0.3647059, b: 0.32156864, a: 0}

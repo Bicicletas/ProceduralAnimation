@@ -51,7 +51,7 @@ Material:
     - _Depth_Fade: 20
     - _Flat_Shaded: 1
     - _FoamWidth: 2.27
-    - _Height: 0.0065
+    - _Height: 0.0035
     - _Noise_Scale: 5
     - _Normal_Strenght: 0.13
     - _QueueControl: 0

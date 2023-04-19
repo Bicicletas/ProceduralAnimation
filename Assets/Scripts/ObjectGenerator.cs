@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TreeGenerator : MonoBehaviour
+public class ObjectGenerator : MonoBehaviour
 {
     [SerializeField] float spawnDelay = 0.8f;
     [SerializeField] float sizeOffset = 50;
@@ -18,6 +18,8 @@ public class TreeGenerator : MonoBehaviour
         public float minObjectSpawnThreshold;
         public float maxObjectSpawnThreshold;
         public float objectSpawnOffsetY = 0.1f;
+        public float minScale = 1;
+        public float maxScale = 2;
         public GameObject[] objects;
         [HideInInspector] public List<Vector3> positions = new List<Vector3>();
 
@@ -26,6 +28,13 @@ public class TreeGenerator : MonoBehaviour
             float angle = Random.Range(0, 360);
 
             return angle;
+        }
+
+        public float RandomScale()
+        {
+            float index = Random.Range(minScale, maxScale);
+
+            return index;
         }
 
         public int RandomIndex()
@@ -53,21 +62,6 @@ public class TreeGenerator : MonoBehaviour
 
     void GenerateObjects()
     {
-        /*
-        for (int i = 0; i < numOfTrees; i++)
-        {
-
-            foreach(Vector3 pos in positions)
-            {
-                if(Mathf.Round(positions[i].magnitude) + spawnSeparationThreshold == Mathf.Round(pos.magnitude) + spawnSeparationThreshold)
-                {
-                    positions.Remove(positions[i]);
-
-                    break;
-                }
-            }
-        }
-        */
         foreach(Settings s in settings)
         {
             for (int i = 0; i < s.numOfObject; i++)
@@ -85,6 +79,10 @@ public class TreeGenerator : MonoBehaviour
                         GameObject instance = Instantiate(@object, new Vector3(hit.point.x, hit.point.y - s.objectSpawnOffsetY, hit.point.z), Quaternion.Euler(@object.transform.eulerAngles.x, @object.transform.eulerAngles.y + s.RandomRotation(), @object.transform.eulerAngles.z));
 
                         instance.transform.parent = hit.transform;
+
+                        float scale = s.RandomScale();
+
+                        instance.transform.localScale = new Vector3(scale, scale, scale);
                     }
                 }
             }

@@ -635,8 +635,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 337.6, y: 84.23624, z: 337.6}
-  m_Center: {x: 0, y: -39.71279, z: 0}
+  m_Size: {x: 337.6, y: 83.95054, z: 337.6}
+  m_Center: {x: 0, y: -39.855614, z: 0}
 --- !u!114 &1033887333982090426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,8 +650,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsGlobal: 0
-  priority: 1
-  blendDistance: 0.05
+  priority: 2
+  blendDistance: 0.2
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 2c0d0b7d7e8673f4db7892a3268885fd, type: 2}
 --- !u!114 &5392931017909097763
@@ -670,18 +670,18 @@ MonoBehaviour:
   sizeOffset: 50
   rayOriginY: 80
   settings:
-  - objectName: Tree
-    numOfObject: 45
+  - objectName: Palm Tree
+    numOfObject: 10
     whatIsGround:
       serializedVersion: 2
       m_Bits: 64
-    minObjectSpawnThreshold: 11
-    maxObjectSpawnThreshold: 23
-    objectSpawnOffsetY: 1.2
+    minObjectSpawnThreshold: 8
+    maxObjectSpawnThreshold: 12
+    objectSpawnOffsetY: 1
+    minScale: 1
+    maxScale: 2
     objects:
-    - {fileID: 6080974392840025516, guid: 45024a55aa513c24f9159300274c9cc2, type: 3}
-    - {fileID: 7245692382038933829, guid: 76c3de3b004af8442be38949cdf463a0, type: 3}
-    - {fileID: 7648719581311487906, guid: 36aa4770febcb17468cb9d94873eb01c, type: 3}
+    - {fileID: 3872780306079603333, guid: 328dabfb64559b54b918841c5831b49c, type: 3}
     positions: []
   - objectName: Rock
     numOfObject: 0
@@ -691,6 +691,8 @@ MonoBehaviour:
     minObjectSpawnThreshold: 10
     maxObjectSpawnThreshold: 50
     objectSpawnOffsetY: 1
+    minScale: 1
+    maxScale: 1
     objects:
     - {fileID: 4599203050603867068, guid: 5abf2e1c328fa5449961be04bdff4236, type: 3}
     positions: []
@@ -702,8 +704,9 @@ MonoBehaviour:
     minObjectSpawnThreshold: 10
     maxObjectSpawnThreshold: 23
     objectSpawnOffsetY: 0.22
+    minScale: 1
+    maxScale: 1.5
     objects:
-    - {fileID: 8987899206551929117, guid: ce8c64238149bf348a67c4ba213b65b7, type: 3}
     - {fileID: 8987899206551929117, guid: 522462d1c5d6ca04e991fdf38819f063, type: 3}
     positions: []
 --- !u!1 &1033887334120776259
