@@ -697,7 +697,7 @@ MonoBehaviour:
     - {fileID: 4599203050603867068, guid: 5abf2e1c328fa5449961be04bdff4236, type: 3}
     positions: []
   - objectName: Grass
-    numOfObject: 250
+    numOfObject: 0
     whatIsGround:
       serializedVersion: 2
       m_Bits: 64
