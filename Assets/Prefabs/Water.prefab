@@ -670,45 +670,8 @@ MonoBehaviour:
   sizeOffset: 50
   rayOriginY: 80
   settings:
-  - objectName: Palm Tree
-    numOfObject: 10
-    whatIsGround:
-      serializedVersion: 2
-      m_Bits: 64
-    minObjectSpawnThreshold: 8
-    maxObjectSpawnThreshold: 12
-    objectSpawnOffsetY: 1
-    minScale: 1
-    maxScale: 2
-    objects:
-    - {fileID: 3872780306079603333, guid: 328dabfb64559b54b918841c5831b49c, type: 3}
-    positions: []
-  - objectName: Rock
-    numOfObject: 0
-    whatIsGround:
-      serializedVersion: 2
-      m_Bits: 64
-    minObjectSpawnThreshold: 10
-    maxObjectSpawnThreshold: 50
-    objectSpawnOffsetY: 1
-    minScale: 1
-    maxScale: 1
-    objects:
-    - {fileID: 4599203050603867068, guid: 5abf2e1c328fa5449961be04bdff4236, type: 3}
-    positions: []
-  - objectName: Grass
-    numOfObject: 0
-    whatIsGround:
-      serializedVersion: 2
-      m_Bits: 64
-    minObjectSpawnThreshold: 10
-    maxObjectSpawnThreshold: 23
-    objectSpawnOffsetY: 0.22
-    minScale: 1
-    maxScale: 1.5
-    objects:
-    - {fileID: 8987899206551929117, guid: 522462d1c5d6ca04e991fdf38819f063, type: 3}
-    positions: []
+  - {fileID: 11400000, guid: 93427b9661af04941806a41a04eea8b4, type: 2}
+  positions: []
 --- !u!1 &1033887334120776259
 GameObject:
   m_ObjectHideFlags: 0
