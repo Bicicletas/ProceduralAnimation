@@ -43,11 +43,11 @@ public class ObjectGenerator : MonoBehaviour
                     {
                         GameObject instance = null;
 
-                        if (s.randomSpawn.randomScale == 0)
+                        if (s.randomScale == 0)
                         {
                             InstantiateObject(s, instance, hit);
                         }
-                        else if (s.randomSpawn.RandomizedSpawnRate())
+                        else if (s.RandomizedSpawnRate())
                         {
                             InstantiateObject(s, instance, hit);
 

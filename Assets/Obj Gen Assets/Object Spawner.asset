@@ -16,12 +16,11 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  minObjectSpawnThreshold: 3
-  maxObjectSpawnThreshold: 40
-  objectSpawnOffsetY: 3
-  minScale: 2
-  maxScale: 2
+  minObjectSpawnThreshold: 10
+  maxObjectSpawnThreshold: 45
+  objectSpawnOffsetY: 2.2
+  minScale: 1.2
+  maxScale: 1.2
   objects:
   - {fileID: 8615468430180708154, guid: 0a27453a684a1734e853c9b6d86a73e1, type: 3}
-  randomSpawn:
-    randomScale: 500
+  randomScale: 10

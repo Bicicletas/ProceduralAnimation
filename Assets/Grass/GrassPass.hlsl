@@ -151,20 +151,14 @@ float4 _WindDistortionMap_ST;
 [maxvertexcount(10)]
 void LitPassGeom(triangle Varyings input[3], inout TriangleStream<Varyings> outStream)
 {
-	if (input[0].positionOS.y < 8 || input[1].positionOS.y < 9 || input[2].positionOS.y < 16 && input[0].positionOS.y > 25 || input[1].positionOS.y > 30 || input[2].positionOS.y > 20)
+	
+
+	if (input[0].positionOS.y < 8 || input[1].positionOS.y < 9 || input[2].positionOS.y < 16 && input[0].positionOS.y > 28 || input[1].positionOS.y > 32 || input[2].positionOS.y > 34)
 	{
 		return;
 	}
-
-	if (input[0].color.g < 0.1f || input[1].color.g < 0.1f || input[2].color.g < 0.1f)
+	else
 	{
-
-		return;
-
-	}
-	else 
-	{
-
 		int i = 0;
 		Varyings o = input[i];
 		float2 uv = (input[i].positionOS.xy * _Time.xy * _WindFrequency);
@@ -220,7 +214,6 @@ void LitPassGeom(triangle Varyings input[3], inout TriangleStream<Varyings> outS
 		outStream.Append(o);
 		outStream.RestartStrip();
 	}
-
 }
 
 

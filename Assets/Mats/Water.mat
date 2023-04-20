@@ -48,7 +48,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Depth_Fade: 20
+    - _Depth_Fade: 4
     - _Flat_Shaded: 1
     - _FoamWidth: 2.27
     - _Height: 0.0035

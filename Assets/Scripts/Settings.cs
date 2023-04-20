@@ -19,28 +19,23 @@ public class Settings : ScriptableObject
     public float maxScale = 2;
     public GameObject[] objects;
 
-    [System.Serializable]
-    public class RandomSpawn
+    [Tooltip("Applied if random scale is greater than 0")]
+    public int randomScale = 10;
+
+    public bool RandomizedSpawnRate()
     {
-        [Tooltip("Applied if random scale is greater than 0")]
-        public int randomScale = 10;
+        int index = Random.Range(0, randomScale);
 
-        public bool RandomizedSpawnRate()
+        if (index == (randomScale - 1))
         {
-            int index = Random.Range(0, randomScale);
-
-            if(index == (randomScale - 1))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-    public RandomSpawn randomSpawn;
 
     public float RandomRotation()
     {
