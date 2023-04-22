@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ObjectGenerator : MonoBehaviour
 {
@@ -12,7 +13,11 @@ public class ObjectGenerator : MonoBehaviour
 
     [HideInInspector] public List<Vector3> positions = new List<Vector3>();
 
-    int objAmount = 0;
+    private GameObject objectPosPanel;
+
+    [SerializeField] GameObject posPanel;
+
+    public static List<GameObject> panelList = new List<GameObject>();
 
     private void Start()
     {
@@ -27,8 +32,12 @@ public class ObjectGenerator : MonoBehaviour
         return new Vector2(x, z);
     }
 
+    Vector3 pos = new Vector3(0, 0, 0);
+
     void GenerateObjects()
     {
+        objectPosPanel = GameObject.Find("ObjectPositions");
+
         foreach(Settings s in settings)
         {
             for (int i = 0; i < s.numOfObject; i++)
@@ -51,14 +60,27 @@ public class ObjectGenerator : MonoBehaviour
                         {
                             InstantiateObject(s, instance, hit);
 
-                            objAmount++;
+                            if(panelList.Count <= 5)
+                            {
+                                GameObject panelInstance = Instantiate(posPanel, objectPosPanel.transform);
+
+                                if (panelInstance != null)
+                                {
+                                    panelInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Item at " + Mathf.RoundToInt(pos.x)+ ", " + Mathf.RoundToInt(pos.y) + ", " + Mathf.RoundToInt(pos.z);
+                                    panelList.Add(panelInstance);
+                                    print(panelList.Count);
+                                }
+                            }
+                            else
+                            {
+                                Destroy(panelList[0]);
+                                panelList.Remove(panelList[0]);
+                            }
                         }
                     }
                 }
             }
         }
-
-        print(objAmount);
     }
 
     void InstantiateObject(Settings s, GameObject instance, RaycastHit hit)
@@ -68,7 +90,12 @@ public class ObjectGenerator : MonoBehaviour
         instance = Instantiate(@object, new Vector3(hit.point.x, hit.point.y + s.objectSpawnOffsetY, hit.point.z),
             Quaternion.Euler(@object.transform.eulerAngles.x, @object.transform.eulerAngles.y + s.RandomRotation(), @object.transform.eulerAngles.z));
 
-        instance.transform.parent = hit.transform;
+        if (!s.worldInstance)
+        {
+            instance.transform.parent = hit.transform;
+        }
+
+        pos = instance.transform.position;
 
         float scale = s.RandomScale();
 

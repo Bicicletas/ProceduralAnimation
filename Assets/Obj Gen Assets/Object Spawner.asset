@@ -22,5 +22,6 @@ MonoBehaviour:
   minScale: 1.2
   maxScale: 1.2
   objects:
-  - {fileID: 8615468430180708154, guid: 0a27453a684a1734e853c9b6d86a73e1, type: 3}
+  - {fileID: 1146851343428390416, guid: 5e4fde1a7dbe30d43bf8742ad4cb4e9e, type: 3}
+  worldInstance: 1
   randomScale: 10

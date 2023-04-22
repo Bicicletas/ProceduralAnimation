@@ -1,22 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] GameObject cam;
+    [SerializeField] TextMeshProUGUI posText;
 
     [HideInInspector] public Rigidbody _playerRigidbody;
 
-    [SerializeField] private Animator _rotationAnimator;
-    //[SerializeField] private Animator _playerAnimator;
-
     [HideInInspector] public static bool canMove = true;
     [HideInInspector] public bool activateSpeedControl = true;
-    private bool canSlide = true;
-    private bool isSliding;
+   
     private bool isRunning;
-    private bool permaCrouch;
+    private bool isSwiming;
 
     [Header("Speed Parametres\n")]
     [SerializeField] private float force = 30f;
@@ -42,20 +41,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask whatIsWater;
 
     private bool canJump = true;
-    [HideInInspector] public bool canSecondJump;
     public bool isGrounded = true;
 
-
-    private Vector3 wallJumpDir;
-
-    private bool canWallJump;
-
     [Header("Gravity Modifier\n")]
-    //[SerializeField] private float wallGrav = -1f;
     public float normalGrav = -10f;
-
-    [SerializeField] private AudioSource _sfxAudioSource;
-    private AudioSource _playerAudioSource;
 
     private float oneUnit = 1f;
     private float halfUnit = .5f;
@@ -63,19 +52,11 @@ public class PlayerController : MonoBehaviour
     private float tenthOfUnit = .1f;
     private float normalForceMulti = 10f;
     private float runningForceMulti = 14f;
-    //private float runningFov = 6f;
-    //private float wallJumpMulti = .8f;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         _playerRigidbody = GetComponent<Rigidbody>();
-
-      
-
-        wallJumpDir = Vector3.forward;
-
-        
     }
 
     private void Update()
@@ -104,6 +85,16 @@ public class PlayerController : MonoBehaviour
             {
                 normalGrav = -12;
             }
+
+            posText.gameObject.SetActive(true);
+
+            cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().enabled = true;
+            posText.text = $"X: {Mathf.RoundToInt(transform.position.x)} Y: {Mathf.RoundToInt(transform.position.y)} Z: {Mathf.RoundToInt(transform.position.z)}";
+        }
+        else
+        {
+            cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().enabled = false;
+            posText.gameObject.SetActive(false);
         }
     }
 
@@ -114,91 +105,18 @@ public class PlayerController : MonoBehaviour
         {
             MovePlayer();
         }
-        
 
         //Raycast that checks if the player is touching the ground
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
-        //isWatered = Physics.Raycast(transform.position, Vector3.down, (playerHight - 1) * halfUnit + tenthOfUnit, whatIsWater) || Physics.Raycast(transform.position, Vector3.up, 100, whatIsWater);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund) 
+            || Physics.Raycast(new Vector3(transform.position.x + rayOffset, transform.position.y, transform.position.z), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund) 
+            || Physics.Raycast(new Vector3(transform.position.x - rayOffset, transform.position.y, transform.position.z), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund) 
+            || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund)
+            || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
 
-        /*
-        isGrounded = Physics.Raycast(new Vector3(transform.position.x + rayOffset, transform.position.y, transform.position.z), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
-        isGrounded = Physics.Raycast(new Vector3(transform.position.x - rayOffset, transform.position.y, transform.position.z), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
-        isGrounded = Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
-        isGrounded = Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
-        */
-    }
-
-    private void LateUpdate()
-    {
-        /*
-        if (_rotationAnimator.enabled)
-        {
-            x = Mathf.Lerp(x, horizontalInput, Time.deltaTime * lerpSpeed);
-            y = Mathf.Lerp(y, verticalInput, Time.deltaTime * lerpSpeed);
-
-            _rotationAnimator.SetFloat("Horizontal", x);
-            _rotationAnimator.SetFloat("Vertical", y);
-
-            if (horizontalInput != 0 || verticalInput != 0)
-            {
-                _rotationAnimator.SetBool("IsMoving", true);
-            }
-            else if (horizontalInput == 0 && verticalInput == 0)
-            {
-                Invoke(nameof(ResetIsMoving), 0.1f);
-            }
-            if (horizontalInput > 0)
-            {
-                _rotationAnimator.SetFloat("H", horizontalInput);
-            }
-            else
-            {
-                Invoke(nameof(ResetHInput), 0.2f);
-            }
-            if(verticalInput > 0)
-            {
-                _rotationAnimator.SetFloat("V", verticalInput);
-            }
-            else
-            {
-                Invoke(nameof(ResetVInput), 0.2f);
-            }
-        }
-        */
-        /*
-        if(horizontalInput != 0 || verticalInput != 0)
-        {
-            _playerAnimator.SetBool("IsRunning", true);
-        }
-        else
-        {
-            _playerAnimator.SetBool("IsRunning", false);
-        }
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            _playerAnimator.SetBool("isJumping", true);
-        }
-
-        if(isGrounded && _playerAnimator.GetBool("isJumping"))
-        {
-            _playerAnimator.SetBool("isJumping", false);
-        }
-        */
-    }
-
-    void ResetHInput()
-    {
-        _rotationAnimator.SetFloat("H", 0);
-    }
-    void ResetVInput()
-    {
-        _rotationAnimator.SetFloat("V", 0);
-    }
-
-    void ResetIsMoving()
-    {
-        _rotationAnimator.SetBool("IsMoving", false);
+        Debug.DrawRay(new Vector3(transform.position.x + rayOffset, transform.position.y, transform.position.z), Vector3.down);
+        Debug.DrawRay(new Vector3(transform.position.x - rayOffset, transform.position.y, transform.position.z), Vector3.down);
+        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z + rayOffset), Vector3.down);
+        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z - rayOffset), Vector3.down);
     }
 
     //All the inputs on whitch the player depends to move arround
@@ -214,8 +132,6 @@ public class PlayerController : MonoBehaviour
             {
                 canJump = false;
 
-                //transform.GetChild(0).GetChild(0).GetComponent<SpiderProceduralAnimation>().enabled = false;
-
                 JumpMechanic();
 
                 Invoke(nameof(JumpReset), jumpCooldown);
@@ -223,10 +139,12 @@ public class PlayerController : MonoBehaviour
             else if (isWatered)
             {
                 normalGrav = Mathf.Lerp(normalGrav, 10, Time.deltaTime * lerpSpeed);
+                isSwiming = true;
             }
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
+            isSwiming = false;
             normalGrav = -12;
         }
 
@@ -238,29 +156,6 @@ public class PlayerController : MonoBehaviour
         {
             isRunning = false;
         }
-
-        //Player crouching state
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.JoystickButton8))
-        {
-            if(isGrounded && canSlide)
-            {
-                canJump = false;
-                isSliding = true;
-                canSlide = false;
-                GetComponent<CapsuleCollider>().height = halfUnit;
-                _playerRigidbody.AddForce(Vector3.down * force, ForceMode.Impulse);
-            }
-        }
-        else if(Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.JoystickButton8))
-        {
-            if (!permaCrouch)
-            {
-                GetComponent<CapsuleCollider>().height = dobleUnit;
-                canSlide = true;
-                isSliding = false;
-                canJump = true;
-            }
-        }
     }
 
     //All the diferents move speeds of the player depending on if is touching the ground, running, crouching, attatched to a wall, grappling or in free fall
@@ -270,11 +165,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
-            if (isSliding)
-            {
-                _playerRigidbody.AddForce(moveDirection.normalized * force * dobleUnit, ForceMode.Force);
-            }
-            else if (isRunning)
+            if (isRunning)
             {
                 _playerRigidbody.AddForce(moveDirection.normalized * force * runningForceMulti, ForceMode.Force);
             }
@@ -313,33 +204,10 @@ public class PlayerController : MonoBehaviour
         _playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
-    //When called this function adds an upwards force to the player and a force in the opposite directon of the wall that is collideing
-    /*
-    void WallJumpMechanic()
-    {
-        _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, 0f, _playerRigidbody.velocity.z);
-
-        _playerRigidbody.AddForce(wallJumpDir * jumpForce * wallJumpMulti, ForceMode.Impulse);
-        _playerRigidbody.AddForce(Vector3.up * jumpForce * wallJumpMulti, ForceMode.Impulse);
-    }
-    */
     //When called set the ability to jump to true
     void JumpReset()
     {
         canJump = true;
-
-        //transform.GetChild(0).GetChild(0).GetComponent<SpiderProceduralAnimation>().enabled = true;
-    }
-
-    //Adds a delay to exit the permacrouch state
-    IEnumerator ResetPermaCrouch()
-    {
-        yield return new WaitForSeconds(halfUnit + tenthOfUnit + tenthOfUnit);
-
-        if (!isSliding)
-        {
-            GetComponent<CapsuleCollider>().height = dobleUnit;
-        }
     }
 
     void OnTriggerStay(Collider other)
@@ -347,6 +215,7 @@ public class PlayerController : MonoBehaviour
         if ((whatIsWater.value & (1 << other.transform.gameObject.layer)) > 0)
         {
             isWatered = true;
+            if(!isSwiming) normalGrav = -6;
         }
     }
 
