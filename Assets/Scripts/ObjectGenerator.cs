@@ -13,12 +13,6 @@ public class ObjectGenerator : MonoBehaviour
 
     [HideInInspector] public List<Vector3> positions = new List<Vector3>();
 
-    private GameObject objectPosPanel;
-
-    [SerializeField] GameObject posPanel;
-
-    public static List<GameObject> panelList = new List<GameObject>();
-
     private void Start()
     {
         Invoke(nameof(GenerateObjects), spawnDelay);
@@ -36,8 +30,6 @@ public class ObjectGenerator : MonoBehaviour
 
     void GenerateObjects()
     {
-        objectPosPanel = GameObject.Find("ObjectPositions");
-
         foreach(Settings s in settings)
         {
             for (int i = 0; i < s.numOfObject; i++)
@@ -59,23 +51,6 @@ public class ObjectGenerator : MonoBehaviour
                         else if (s.RandomizedSpawnRate())
                         {
                             InstantiateObject(s, instance, hit);
-
-                            if(panelList.Count <= 5)
-                            {
-                                GameObject panelInstance = Instantiate(posPanel, objectPosPanel.transform);
-
-                                if (panelInstance != null)
-                                {
-                                    panelInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Item at " + Mathf.RoundToInt(pos.x)+ ", " + Mathf.RoundToInt(pos.y) + ", " + Mathf.RoundToInt(pos.z);
-                                    panelList.Add(panelInstance);
-                                    print(panelList.Count);
-                                }
-                            }
-                            else
-                            {
-                                Destroy(panelList[0]);
-                                panelList.Remove(panelList[0]);
-                            }
                         }
                     }
                 }

@@ -666,14 +666,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023a5cb0df7b81e4d9fa75cdfde28b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnDelay: 0.8
+  spawnDelay: 0.7
   sizeOffset: 50
   rayOriginY: 80
   settings:
   - {fileID: 11400000, guid: 93427b9661af04941806a41a04eea8b4, type: 2}
+  - {fileID: 11400000, guid: 72d63a7acd111f54e8aefc1c03e0b08a, type: 2}
   positions: []
-  posPanel: {fileID: 1059029003947916616, guid: 0db2c87f626100a4abd729b617fd549d,
-    type: 3}
 --- !u!1 &1033887334120776259
 GameObject:
   m_ObjectHideFlags: 0

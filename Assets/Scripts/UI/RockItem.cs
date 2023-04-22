@@ -10,8 +10,20 @@ public class RockItem : Item
     {
         return 64;
     }
+    public override int GiveScale()
+    {
+        return 40;
+    }
     public override Sprite GiveItemImage()
     {
         return Resources.Load<Sprite>("UI/Item Images/Rock");
+    }
+    public override Mesh GiveItemMesh()
+    {
+        return Resources.Load<Mesh>("Pickup Items/Rock/RockMesh");
+    }
+    public override Material GiveItemMat()
+    {
+        return Resources.Load<Material>("Pickup Items/Rock/RockMat");
     }
 }

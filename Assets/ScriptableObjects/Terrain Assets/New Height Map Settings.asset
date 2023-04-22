@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed09c6d65c454ce3a8d30092741aba8, type: 3}
+  m_Name: New Height Map Settings
+  m_EditorClassIdentifier: 
+  autoUpdate: 1
+  noiseSettings:
+    normalizeMode: 1
+    scale: 170
+    octaves: 8
+    persistance: 0.3
+    lacunarity: 2.82
+    seed: 0
+    offset: {x: 0, y: 0}
+  useFalloff: 0
+  heightMultiplier: 31
+  heightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.030617401
+      value: -0.28561622
+      inSlope: 0.04192345
+      outSlope: 0.04192345
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.22183922
+    - serializedVersion: 3
+      time: 0.30497178
+      value: 0.009728685
+      inSlope: 3.2614095
+      outSlope: -0.14695938
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.14844833
+      outWeight: 0.08705035
+    - serializedVersion: 3
+      time: 1.2082522
+      value: 1.4581449
+      inSlope: 0.3454672
+      outSlope: 0.3454672
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.09077119
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

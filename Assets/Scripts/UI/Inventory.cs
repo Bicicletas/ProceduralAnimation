@@ -46,6 +46,9 @@ public class Inventory : MonoBehaviour
             }
         }
         itemsInDictionary += ".";
+
+        AddItem("Rock", 10);
+        AddItem("Crystal", 10);
     }
 
     // Update is called once per frame
@@ -197,11 +200,17 @@ public class Inventory : MonoBehaviour
             return;
         }
 
+        item.GiveItemMesh();
+
         Transform camTransform = Camera.main.transform;
 
         GameObject droppedItem = Instantiate(item.DropObject(),
             camTransform.position + camTransform.forward,
             Quaternion.Euler(Vector3.zero));
+
+        droppedItem.GetComponentInChildren<MeshRenderer>().material = item.GiveItemMat();
+        droppedItem.GetComponentInChildren<MeshFilter>().mesh = item.GiveItemMesh();
+        droppedItem.transform.GetChild(0).localScale = new Vector3(item.GiveScale(), item.GiveScale(), item.GiveScale());
 
         Rigidbody rb = droppedItem.GetComponent<Rigidbody>();
         if (rb != null) rb.velocity = camTransform.forward * 12;

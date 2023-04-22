@@ -21,7 +21,7 @@ public class ItemPickup : MonoBehaviour
     {
         amount = inventory.AddItem(itemToDrop, amount);
 
-        if (amount < 1) Destroy(this.transform.root.gameObject);
+        if (amount < 1) Destroy(this.gameObject.transform.parent.gameObject);
     }
 
 }
