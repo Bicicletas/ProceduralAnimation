@@ -29,7 +29,7 @@ Material:
     - _NadirBlend: 1
     - _ZenithBlend: 1
     m_Colors:
-    - _GroundColor: {r: 0, g: 0, b: 0, a: 0}
+    - _GroundColor: {r: 1, g: 0.5882353, b: 0.2392157, a: 0}
     - _HorizonColor: {r: 1, g: 0.5870578, b: 0.24056602, a: 1}
     - _SkyColor: {r: 0.98131895, g: 1, b: 0.6933962, a: 0}
   m_BuildTextureStacks: []

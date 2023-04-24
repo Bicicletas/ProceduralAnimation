@@ -1,6 +1,6 @@
 ﻿//https://pastebin.com/Ey01tzLq (SRP Batching Support + ShadowCaster support)
 
-Shader "Unlit/URPPlanedDepth"
+Shader "Lit/URPPlanedDepth"
 {
 
     Properties
