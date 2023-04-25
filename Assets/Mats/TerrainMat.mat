@@ -77,22 +77,22 @@ Material:
     m_Ints: []
     m_Floats:
     - _GrassHeight: 8.5
-    - _GrassTXT_Tile: 0.06
+    - _GrassTXT_Tile: 0
     - _NoiseMultiplier: -1.43
     - _NoiseSpeed: 0.03
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Rock1TXT_Tile: 0.05
+    - _Rock1TXT_Tile: 0
     - _Rock2TXT_Tile: 0.03
-    - _Rocks1Height: 40
+    - _Rocks1Height: 29
     - _Rocks2Height: 42.2
     - _SandHeight: 3
-    - _SandTXT_Tile: 0.15
+    - _SandTXT_Tile: 0
     - _Smoothnes: 0
-    - _SnowHeight: 58
-    - _SnowTXT_Tile: 0.07
+    - _SnowHeight: 65
+    - _SnowTXT_Tile: 0
     - _StoneHeight: 7
-    - _StoneTXT_Tile: 0.023
+    - _StoneTXT_Tile: 0
     - _UseNoise: 1
     - _WaterHeight: 1.03
     - _WaterTXT_Tile: 0.03

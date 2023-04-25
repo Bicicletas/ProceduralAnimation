@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     public GameObject inventoryMenu;
     public GameObject itemPanel;
     public GameObject itemPanelGrid;
+    public GameObject pp;
 
     public Mouse mouse;
 
@@ -62,6 +63,7 @@ public class Inventory : MonoBehaviour
                 mouse.EmptySlot();
                 Cursor.lockState = CursorLockMode.Locked;
                 PlayerController.canMove = true;
+                pp.SetActive(false);
             }
             else
             {
@@ -69,6 +71,7 @@ public class Inventory : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Confined;
                 RefreshInventory();
                 PlayerController.canMove = false;
+                pp.SetActive(true);
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse1) && mouse.itemSlot.item != null)
