@@ -86,16 +86,16 @@ Material:
     - _Rock2TXT_Tile: 0.03
     - _Rocks1Height: 29
     - _Rocks2Height: 42.2
-    - _SandHeight: 3
+    - _SandHeight: 2.35
     - _SandTXT_Tile: 0
-    - _Smoothnes: 0
+    - _Smoothnes: 0.3
     - _SnowHeight: 65
     - _SnowTXT_Tile: 0
-    - _StoneHeight: 7
+    - _StoneHeight: 7.15
     - _StoneTXT_Tile: 0
     - _UseNoise: 1
     - _WaterHeight: 1.03
-    - _WaterTXT_Tile: 0.03
+    - _WaterTXT_Tile: 0
     m_Colors:
     - _BaseColor: {r: 0.495283, g: 0.78404033, b: 1, a: 0}
     - _GrassTint: {r: 1, g: 1, b: 1, a: 0}
