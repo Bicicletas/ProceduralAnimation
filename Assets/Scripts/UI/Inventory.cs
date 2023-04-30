@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
     public GameObject itemPanel;
     public GameObject itemPanelGrid;
     public GameObject pp;
+    public GameObject[] otherUI;
 
     public Mouse mouse;
 
@@ -64,6 +65,7 @@ public class Inventory : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 PlayerController.canMove = true;
                 pp.SetActive(false);
+                UpdateOtherUI(true);
             }
             else
             {
@@ -72,6 +74,7 @@ public class Inventory : MonoBehaviour
                 RefreshInventory();
                 PlayerController.canMove = false;
                 pp.SetActive(true);
+                UpdateOtherUI(false);
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse1) && mouse.itemSlot.item != null)
@@ -81,6 +84,14 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && mouse.itemSlot.item != null && !EventSystem.current.IsPointerOverGameObject())
         {
             DropItem(mouse.itemSlot.item.GiveName());
+        }
+    }
+
+    void UpdateOtherUI(bool b)
+    {
+        foreach (GameObject g in otherUI)
+        {
+            g.SetActive(b);
         }
     }
 

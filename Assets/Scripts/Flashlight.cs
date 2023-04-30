@@ -11,7 +11,7 @@ public class Flashlight : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && PlayerController.canMove)
         {
             if (flashlight.enabled)
             {
