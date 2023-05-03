@@ -14,6 +14,8 @@ public class ItemPickup : MonoBehaviour
             Inventory playerInventory = other.GetComponentInChildren<Inventory>();
 
             if (playerInventory != null) PickUpItem(playerInventory);
+
+            playerInventory.GetItemAmount();
         }
     }
 

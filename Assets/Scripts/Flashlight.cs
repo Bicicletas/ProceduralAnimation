@@ -27,8 +27,6 @@ public class Flashlight : MonoBehaviour
 
         float increment = Input.GetAxisRaw("Mouse ScrollWheel") * speed;
 
-        print(increment);
-
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f && value < 100)
         {
             value += increment;

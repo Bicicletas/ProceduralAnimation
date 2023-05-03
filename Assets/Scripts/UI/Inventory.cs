@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.EventSystems;
-
+using TMPro;
 public class Inventory : MonoBehaviour
 {
     [SerializeReference] public List<ItemSlotInfo> items = new List<ItemSlotInfo>();
@@ -15,6 +15,9 @@ public class Inventory : MonoBehaviour
     public GameObject itemPanelGrid;
     public GameObject pp;
     public GameObject[] otherUI;
+    public TextMeshProUGUI[] itemAmountText;
+
+    public static Inventory instance;
 
     public Mouse mouse;
 
@@ -24,6 +27,15 @@ public class Inventory : MonoBehaviour
 
     [Space]
     public int inventorySize = 24;
+
+    List<int> rockIndex = new List<int>();
+    List<int> crystalIndex = new List<int>();
+    List<int> goldIndex = new List<int>();
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -49,13 +61,66 @@ public class Inventory : MonoBehaviour
         }
         itemsInDictionary += ".";
 
-        AddItem("Rock", 10);
-        AddItem("Crystal", 10);
+        //AddItem("Rock", 40);
+        GetItemAmount();
+    }
+
+    public void GetItemAmount()
+    {
+        RefreshInventory();
+
+        List<ItemPanel> ip = new List<ItemPanel>();
+
+        foreach (Transform t in itemPanelGrid.transform)
+        {
+            ip.Add(t.GetComponent<ItemPanel>());
+        }
+
+        SetItemAmount(ip, "Rock", 0, rockIndex);
+        SetItemAmount(ip, "Crystal", 1, crystalIndex);
+        SetItemAmount(ip, "Gold", 2, goldIndex);
+        
+        ip.Clear();
+    }
+
+    void SetItemAmount(List<ItemPanel> ips, string item, int i, List<int> itemIndex)
+    {
+        foreach (ItemPanel ip in ips)
+        {
+            if (ip.itemImage.sprite != null)
+            {
+                if (ip.itemImage.sprite.name == item)
+                {
+                    itemIndex.Add(ip.itemSlot.stacks);
+                }
+            }
+        }
+
+        int finalValue = 0;
+
+        foreach (int y in itemIndex)
+        {
+            finalValue += y;
+        }
+
+        PlayerPrefs.SetInt(item, finalValue);
+        itemAmountText[i].text = item + " " + finalValue.ToString();
+
+        itemIndex.Clear();
     }
 
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR
+#endif
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PlayerPrefs.DeleteAll();
+            print("PlayerPrefs Delated");
+        }
+        
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (inventoryMenu.activeSelf)
@@ -240,6 +305,8 @@ public class Inventory : MonoBehaviour
         if (mouse.itemSlot.stacks < 1) ClearSlot(mouse.itemSlot);
         mouse.EmptySlot();
         RefreshInventory();
+
+        GetItemAmount();
     }
 
     public void ClearSlot(ItemSlotInfo slot)
