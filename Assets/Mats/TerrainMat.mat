@@ -25,7 +25,7 @@ Material:
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 2
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -76,7 +76,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _GrassHeight: 8.5
+    - _GrassHeight: 12
     - _GrassTXT_Tile: 0
     - _NoiseMultiplier: -1.43
     - _NoiseSpeed: 0.03
@@ -84,14 +84,14 @@ Material:
     - _QueueOffset: 0
     - _Rock1TXT_Tile: 0
     - _Rock2TXT_Tile: 0.03
-    - _Rocks1Height: 29
+    - _Rocks1Height: 40
     - _Rocks2Height: 42.2
-    - _SandHeight: 2.35
+    - _SandHeight: -5
     - _SandTXT_Tile: 0
-    - _Smoothnes: 0.3
+    - _Smoothnes: 0.1
     - _SnowHeight: 65
     - _SnowTXT_Tile: 0
-    - _StoneHeight: 7.15
+    - _StoneHeight: 6.5
     - _StoneTXT_Tile: 0
     - _UseNoise: 1
     - _WaterHeight: 1.03

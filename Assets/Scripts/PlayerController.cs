@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         _playerRigidbody = GetComponent<Rigidbody>();
+        Camera.main.layerCullSpherical = true;
     }
 
     private void Update()

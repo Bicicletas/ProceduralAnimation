@@ -5,20 +5,23 @@ using UnityEngine;
 public class RotateSkybox : MonoBehaviour
 {
     [SerializeField] Material skybox;
-    [SerializeField] Material vFog;
     [SerializeField] Light sun;
+    [SerializeField] Light sun2;
     [SerializeField] float speed = 1;
 
-    [Range(0, 1)]
-    [SerializeField] float vFogAlpha = 0.5f;
+    [Range(0, 2)]
+    [SerializeField] float fogMultiplier = 0.5f;
     float rotationSpeed;
 
     private void Update()
     {
-        skybox.SetColor("_Tint", sun.color);
-        skybox.SetFloat("_Exposure", sun.intensity > 0.5f ? sun.intensity : 0.5f);
-        vFog.SetColor("Color_69AD1AD", new Color(sun.color.r, sun.color.g, sun.color.b, vFogAlpha));
-        RenderSettings.fogColor = sun.color;
+        skybox.SetColor("_SkyColor", sun.color * 2f);
+        skybox.SetColor("_HorizonColor", sun.color);
+        skybox.SetColor("_GroundColor", skybox.GetColor("_HorizonColor"));
+        sun2.color = sun.color;
+        //skybox.SetFloat("_Exposure", sun.intensity > 0.5f ? sun.intensity : 0.5f);
+        //RenderSettings.fogColor = sun.color * fogMultiplier;
+        RenderSettings.fogColor = skybox.GetColor("_HorizonColor") * fogMultiplier;
 
         rotationSpeed += Time.deltaTime * speed;
 

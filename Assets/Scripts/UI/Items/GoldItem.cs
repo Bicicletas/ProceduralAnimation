@@ -12,9 +12,9 @@ public class GoldItem : Item
     {
         return 2;
     }
-    public override int GiveScale()
+    public override float GiveScale()
     {
-        return 1;
+        return .5f;
     }
     public override Sprite GiveItemImage()
     {

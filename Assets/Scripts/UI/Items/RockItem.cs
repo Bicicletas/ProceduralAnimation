@@ -10,9 +10,9 @@ public class RockItem : Item
     {
         return 10;
     }
-    public override int GiveScale()
+    public override float GiveScale()
     {
-        return 40;
+        return .5f;
     }
     public override Sprite GiveItemImage()
     {

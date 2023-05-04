@@ -8,7 +8,7 @@ public abstract class Item
     {
         return 30;
     }
-    public virtual int GiveScale()
+    public virtual float GiveScale()
     {
         return 50;
     }

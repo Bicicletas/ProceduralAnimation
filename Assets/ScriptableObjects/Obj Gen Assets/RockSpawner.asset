@@ -24,4 +24,4 @@ MonoBehaviour:
   objects:
   - {fileID: 8806264036039113544, guid: 4275fe8c84813ee419555efb47da4d36, type: 3}
   worldInstance: 0
-  randomScale: 12
+  randomScale: 15

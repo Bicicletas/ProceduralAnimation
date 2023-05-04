@@ -61,7 +61,9 @@ public class Inventory : MonoBehaviour
         }
         itemsInDictionary += ".";
 
-        //AddItem("Rock", 40);
+        AddItem("Rock", 10);
+        AddItem("Crystal", 5);
+        AddItem("Gold", 3);
         GetItemAmount();
     }
 
@@ -284,12 +286,12 @@ public class Inventory : MonoBehaviour
         Transform camTransform = Camera.main.transform;
 
         GameObject droppedItem = Instantiate(item.DropObject(),
-            camTransform.position + camTransform.forward,
+            camTransform.position + (camTransform.forward * 2),
             Quaternion.Euler(Vector3.zero));
 
         droppedItem.GetComponentInChildren<MeshRenderer>().material = item.GiveItemMat();
         droppedItem.GetComponentInChildren<MeshFilter>().mesh = item.GiveItemMesh();
-        droppedItem.transform.GetChild(0).localScale = new Vector3(item.GiveScale(), item.GiveScale(), item.GiveScale());
+        droppedItem.transform.GetChild(1).localScale = new Vector3(item.GiveScale(), item.GiveScale(), item.GiveScale());
 
         Rigidbody rb = droppedItem.GetComponent<Rigidbody>();
         if (rb != null) rb.velocity = camTransform.forward * 12;

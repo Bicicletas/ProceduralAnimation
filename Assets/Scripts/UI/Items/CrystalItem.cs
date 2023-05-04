@@ -10,7 +10,7 @@ public class CrystalItem : Item
     {
         return 5;
     }
-    public override int GiveScale()
+    public override float GiveScale()
     {
         return 1;
     }
