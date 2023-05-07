@@ -15,7 +15,11 @@ public class Inventory : MonoBehaviour
     public GameObject itemPanelGrid;
     public GameObject pp;
     public GameObject[] otherUI;
+
+    [SerializeField] GameObject pauseMenu;
+
     public TextMeshProUGUI[] itemAmountText;
+
 
     public static Inventory instance;
 
@@ -146,7 +150,7 @@ public class Inventory : MonoBehaviour
                 pp.SetActive(false);
                 UpdateOtherUI(true);
             }
-            else
+            else if (!pauseMenu.activeSelf)
             {
                 inventoryMenu.SetActive(true);
                 Cursor.lockState = CursorLockMode.Confined;

@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         _playerRigidbody = GetComponent<Rigidbody>();
         Camera.main.layerCullSpherical = true;
+        canMove = true;
     }
 
     private void Update()
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().enabled = false;
+            if(isGrounded) _playerRigidbody.velocity = Vector3.zero;
         }
     }
 
