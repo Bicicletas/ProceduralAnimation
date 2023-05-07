@@ -77,7 +77,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _GrassHeight: 12
-    - _GrassTXT_Tile: 0
+    - _GrassTXT_Tile: 0.0007
     - _NoiseMultiplier: -1.43
     - _NoiseSpeed: 0.03
     - _QueueControl: 0

@@ -237,6 +237,7 @@ public class MeshData
 
 	void FlatShading()
 	{
+
 		Vector3[] flatShadedVertices = new Vector3[triangles.Length];
 		Vector2[] flatShadedUvs = new Vector2[triangles.Length];
 

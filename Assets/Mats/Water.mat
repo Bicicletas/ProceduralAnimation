@@ -27,7 +27,7 @@ Material:
   m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -48,18 +48,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Depth_Fade: 3.7
+    - _Depth_Fade: 1.56
     - _Flat_Shaded: 1
     - _FoamWidth: 0.54
-    - _Height: 0.0035
+    - _Height: 0.004
     - _Noise_Scale: 4
-    - _Normal_Strenght: 0.13
+    - _Normal_Strenght: -0.05
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 1
+    - _Smoothness: 0.61
     - _Water_Scroll_Speed: 0.13
     m_Colors:
-    - _Deep: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
+    - _Deep: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 1}
     - _Foam_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Shallow: {r: 0.375534, g: 0.5833037, b: 0.8207547, a: 1}
+    - _Shallow: {r: 0.16487186, g: 0.50789654, b: 0.8962264, a: 1}
   m_BuildTextureStacks: []

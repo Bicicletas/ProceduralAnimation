@@ -22,7 +22,9 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: CrystalMat
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ENVIRONMENTREFLECTIONS_OFF
+  - _SPECULARHIGHLIGHTS_OFF
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -106,7 +108,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EnvironmentReflections: 1
+    - _EnvironmentReflections: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -121,9 +123,9 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.6
+    - _Smoothness: 0.2
     - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
+    - _SpecularHighlights: 0
     - _SrcBlend: 1
     - _Surface: 0
     - _Trunk_Height: 0
@@ -134,8 +136,8 @@ Material:
     - _ZenithBlend: 0.01
     m_Colors:
     - _Albedo: {r: 0.17111623, g: 0.3679245, b: 0.06421324, a: 0}
-    - _BaseColor: {r: 0.2864837, g: 0, b: 0.5660378, a: 1}
-    - _Color: {r: 0.28648368, g: 0, b: 0.5660378, a: 1}
+    - _BaseColor: {r: 0.3744548, g: 0.19873619, b: 0.5471698, a: 1}
+    - _Color: {r: 0.37445477, g: 0.19873616, b: 0.5471698, a: 1}
     - _Color1: {r: 1, g: 1, b: 1, a: 1}
     - _Color2: {r: 1, g: 1, b: 1, a: 1}
     - _Color3: {r: 1, g: 1, b: 1, a: 1}

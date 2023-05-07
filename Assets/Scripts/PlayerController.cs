@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] GameObject cam;
-    [SerializeField] TextMeshProUGUI posText;
 
     [HideInInspector] public Rigidbody _playerRigidbody;
 
@@ -87,15 +85,11 @@ public class PlayerController : MonoBehaviour
                 normalGrav = -12;
             }
 
-            posText.gameObject.SetActive(true);
-
             cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().enabled = true;
-            posText.text = $"X: {Mathf.RoundToInt(transform.position.x)} Y: {Mathf.RoundToInt(transform.position.y)} Z: {Mathf.RoundToInt(transform.position.z)}";
         }
         else
         {
             cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().enabled = false;
-            posText.gameObject.SetActive(false);
         }
     }
 

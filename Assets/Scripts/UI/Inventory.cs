@@ -61,9 +61,21 @@ public class Inventory : MonoBehaviour
         }
         itemsInDictionary += ".";
 
-        AddItem("Rock", 10);
-        AddItem("Crystal", 5);
-        AddItem("Gold", 3);
+        if (PlayerPrefs.HasKey("Rock") && PlayerPrefs.GetInt("Rock") > 0)
+        {
+            AddItem("Rock", PlayerPrefs.GetInt("Rock"));
+        }
+
+        if (PlayerPrefs.HasKey("Crystal") && PlayerPrefs.GetInt("Crystal") > 0)
+        {
+            AddItem("Crystal", PlayerPrefs.GetInt("Crystal"));
+        }
+
+        if (PlayerPrefs.HasKey("Gold") && PlayerPrefs.GetInt("Gold") > 0)
+        {
+            AddItem("Gold", PlayerPrefs.GetInt("Gold"));
+        }
+
         GetItemAmount();
     }
 
