@@ -13,12 +13,13 @@ public class Settings : ScriptableObject
     [Range(0, 80)]
     public float maxObjectSpawnThreshold = 30;
     public float objectSpawnOffsetY = 0.1f;
-    [Min(1)]
+    [Min(0.01f)]
     public float minScale = 1;
-    [Min(1)]
+    [Min(0.01f)]
     public float maxScale = 2;
     public GameObject[] objects;
     public bool worldInstance = false;
+    public bool childInstance = true;
     [Tooltip("Applied if random scale is greater than 0")]
     public int randomScale = 10;
 

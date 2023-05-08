@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
     [Header("Gravity Modifier\n")]
     public float normalGrav = -10f;
 
+    private float currentGrav;
+
     private float oneUnit = 1f;
     private float halfUnit = .5f;
     private float dobleUnit = 2f;
@@ -57,6 +59,7 @@ public class PlayerController : MonoBehaviour
         _playerRigidbody = GetComponent<Rigidbody>();
         Camera.main.layerCullSpherical = true;
         canMove = true;
+        currentGrav = normalGrav;
     }
 
     private void Update()
@@ -77,13 +80,13 @@ public class PlayerController : MonoBehaviour
             else
             {
                 _playerRigidbody.drag = oneUnit;
-                Physics.gravity = new Vector3(0, normalGrav, 0);
+                Physics.gravity = new Vector3(0, normalGrav * 2, 0);
             }
 
 
             if (!isWatered)
             {
-                normalGrav = -12;
+                currentGrav = normalGrav;
             }
 
             cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().enabled = true;
@@ -135,14 +138,14 @@ public class PlayerController : MonoBehaviour
             }
             else if (isWatered)
             {
-                normalGrav = Mathf.Lerp(normalGrav, 10, Time.deltaTime * lerpSpeed);
+                currentGrav = Mathf.Lerp(currentGrav, 10, Time.deltaTime * lerpSpeed);
                 isSwiming = true;
             }
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             isSwiming = false;
-            normalGrav = -12;
+            currentGrav = normalGrav;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -212,7 +215,7 @@ public class PlayerController : MonoBehaviour
         if ((whatIsWater.value & (1 << other.transform.gameObject.layer)) > 0)
         {
             isWatered = true;
-            if(!isSwiming) normalGrav = -6;
+            if(!isSwiming) currentGrav = -5;
         }
     }
 

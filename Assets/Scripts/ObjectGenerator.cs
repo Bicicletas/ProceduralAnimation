@@ -74,6 +74,14 @@ public class ObjectGenerator : MonoBehaviour
 
         float scale = s.RandomScale();
 
-        instance.transform.GetChild(0).localScale = new Vector3(scale, scale, scale);
+        if (s.childInstance)
+        {
+            instance.transform.GetChild(0).localScale = new Vector3(scale, scale, scale);
+        }
+        else
+        {
+            instance.transform.localScale = new Vector3(scale, scale, scale);
+            print(instance.transform.position);
+        }
     }
 }

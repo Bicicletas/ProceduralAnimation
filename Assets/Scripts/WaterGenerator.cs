@@ -4,27 +4,30 @@ using UnityEngine;
 
 public class WaterGenerator : MonoBehaviour
 {
-    MeshCollider[] terrainChunks;
+    public GameObject waterChunk;
 
-    [SerializeField] GameObject waterChunk;
-
-    private void Update()
+    private void Start()
     {
-        terrainChunks = FindObjectsOfType<MeshCollider>();
+        Invoke(nameof(MeshCollider), 1.1f);
 
-        foreach (MeshCollider m in terrainChunks)
+        GameObject instance = Instantiate(waterChunk, new Vector3(transform.position.x, waterChunk.transform.position.y, transform.position.z), waterChunk.transform.rotation);
+
+        instance.transform.parent = transform;
+    }
+
+    void MeshCollider()
+    {
+        MeshFilter mf = GetComponent<MeshFilter>();
+
+        MeshCollider mc = GetComponent<MeshCollider>();
+
+        int i = 0;
+
+        if (mc.sharedMesh != mf.sharedMesh && i < 1)
         {
-            MeshFilter mf = m.gameObject.GetComponent<MeshFilter>();
-
-            m.sharedMesh = mf.sharedMesh;
-
-            if (m.transform.childCount == 0 && m.gameObject.activeSelf && m.gameObject.name == "Terrain Chunk")
-            {
-
-                GameObject instance = Instantiate(waterChunk, new Vector3(m.transform.position.x, waterChunk.transform.position.y, m.transform.position.z), waterChunk.transform.rotation);
-
-                instance.transform.parent = m.transform;
-            }
+            mc.sharedMesh = mf.sharedMesh;
+            i++;
+            print("caca");
         }
     }
 }

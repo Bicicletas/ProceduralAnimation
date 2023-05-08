@@ -18,7 +18,7 @@ MonoBehaviour:
     m_Value: 1.3
   intensity:
     m_OverrideState: 1
-    m_Value: 0.1
+    m_Value: 2
   scatter:
     m_OverrideState: 1
     m_Value: 1
@@ -33,7 +33,7 @@ MonoBehaviour:
     m_Value: 0
   skipIterations:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 5
   dirtTexture:
     m_OverrideState: 1
     m_Value: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 1
     m_Value: 2
