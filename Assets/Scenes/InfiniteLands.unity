@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 410087040}
-  m_IndirectSpecularColor: {r: 1.3318915, g: 1.1971995, b: 0.33147717, a: 1}
+  m_IndirectSpecularColor: {r: 1.1921458, g: 0.9447913, b: 0.28082204, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6846,6 +6846,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370713586235271952, guid: 670274c075f67c3499114bbbbf57f95e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7854797101371404714, guid: 670274c075f67c3499114bbbbf57f95e,
         type: 3}

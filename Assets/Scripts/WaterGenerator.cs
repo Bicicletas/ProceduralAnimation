@@ -27,7 +27,6 @@ public class WaterGenerator : MonoBehaviour
         {
             mc.sharedMesh = mf.sharedMesh;
             i++;
-            print("caca");
         }
     }
 }
