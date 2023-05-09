@@ -6,16 +6,16 @@ using TMPro;
 public class ObjectGenerator : MonoBehaviour
 {
     [SerializeField] float spawnDelay = 0.8f;
+    [SerializeField] float repeatSpawnRate = 0.8f;
     [SerializeField] float sizeOffset = 50;
-    [SerializeField] float rayOriginY = 80;    
+    [SerializeField] float rayOriginY = 80;
+    [SerializeField] int maxObjectsPerChunk = 10;
 
     [SerializeField] Settings[] settings;
 
-    [HideInInspector] public List<Vector3> positions = new List<Vector3>();
-
     private void Start()
     {
-        Invoke(nameof(GenerateObjects), spawnDelay);
+        InvokeRepeating("GenerateObjects", spawnDelay, repeatSpawnRate);
     }
 
     Vector2 RandomPos(Vector3 parentPos)
@@ -26,32 +26,32 @@ public class ObjectGenerator : MonoBehaviour
         return new Vector2(x, z);
     }
 
-    Vector3 pos = new Vector3(0, 0, 0);
-
     void GenerateObjects()
     {
-        foreach(Settings s in settings)
+        foreach (Settings s in settings)
         {
-            for (int i = 0; i < s.numOfObject; i++)
+            Vector3 position = new Vector3(RandomPos(transform.position).x, rayOriginY, RandomPos(transform.position).y);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(position, Vector3.down, out hit, 100f, s.whatIsGround))
             {
-                positions.Add(new Vector3(RandomPos(transform.parent.position).x, rayOriginY, RandomPos(transform.parent.position).y));
-
-                RaycastHit hit;
-
-                if (Physics.Raycast(positions[i], Vector3.down, out hit, 100f, s.whatIsGround))
+                if (hit.point.y > s.minObjectSpawnThreshold && hit.point.y < s.maxObjectSpawnThreshold)
                 {
-                    if (hit.point.y > s.minObjectSpawnThreshold && hit.point.y < s.maxObjectSpawnThreshold)
+                    if (hit.transform.childCount >= maxObjectsPerChunk)
                     {
-                        GameObject instance = null;
+                        return;
+                    }
 
-                        if (s.randomScale == 0)
-                        {
-                            InstantiateObject(s, instance, hit);
-                        }
-                        else if (s.RandomizedSpawnRate())
-                        {
-                            InstantiateObject(s, instance, hit);
-                        }
+                    GameObject instance = null;
+
+                    if (s.randomScale == 0)
+                    {
+                        InstantiateObject(s, instance, hit);
+                    }
+                    else if (s.RandomizedSpawnRate())
+                    {
+                        InstantiateObject(s, instance, hit);
                     }
                 }
             }
@@ -70,8 +70,6 @@ public class ObjectGenerator : MonoBehaviour
             instance.transform.parent = hit.transform;
         }
 
-        pos = instance.transform.position;
-
         float scale = s.RandomScale();
 
         if (s.childInstance)
@@ -83,5 +81,16 @@ public class ObjectGenerator : MonoBehaviour
             instance.transform.localScale = new Vector3(scale, scale, scale);
             print(instance.transform.position);
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteKey("SavedGame");
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, sizeOffset);
     }
 }

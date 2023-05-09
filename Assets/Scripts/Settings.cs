@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class Settings : ScriptableObject
 {
-    [Min(0)]
-    public int numOfObject = 1;
     public LayerMask whatIsGround;
     [Range(0, 80)]
     public float minObjectSpawnThreshold = 10;

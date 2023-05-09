@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea88e3400005de498e70ea601f7e7a1, type: 3}
   m_Name: Ruins
   m_EditorClassIdentifier: 
-  numOfObject: 1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
   minObjectSpawnThreshold: 10
   maxObjectSpawnThreshold: 12
-  objectSpawnOffsetY: -2.5
+  objectSpawnOffsetY: -1.6
   minScale: 0.5
   maxScale: 0.5
   objects:
   - {fileID: 6183465663261763343, guid: d55767de5136c924c815c8212235fbb3, type: 3}
   worldInstance: 0
   childInstance: 0
-  randomScale: 20
+  randomScale: 1

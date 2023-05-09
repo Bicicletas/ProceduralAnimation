@@ -60,9 +60,10 @@ public class PauseMenu : MonoBehaviour
         UpdateOtherUI(false);
     }
 
-    public void MainMenu(string scene)
+    public void SaveQuit(string scene)
     {
         Inventory.instance.GetItemAmount();
+        PlayerController.instance.CurrentPos();
         SceneManager.LoadScene(scene);
     }
 

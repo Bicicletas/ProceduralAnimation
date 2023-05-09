@@ -5,7 +5,10 @@ using Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     [SerializeField] GameObject cam;
+    CinemachinePOV pov;
 
     [HideInInspector] public Rigidbody _playerRigidbody;
 
@@ -53,13 +56,26 @@ public class PlayerController : MonoBehaviour
     private float normalForceMulti = 10f;
     private float runningForceMulti = 14f;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         _playerRigidbody = GetComponent<Rigidbody>();
+        pov = cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>();
         Camera.main.layerCullSpherical = true;
         canMove = true;
         currentGrav = normalGrav;
+
+        if (PlayerPrefs.HasKey("x"))
+        {
+            transform.position = new Vector3(PlayerPrefs.GetFloat("x"), PlayerPrefs.GetFloat("y") + 2, PlayerPrefs.GetFloat("z"));
+            pov.m_HorizontalAxis.Value = PlayerPrefs.GetFloat("hValue");
+            pov.m_VerticalAxis.Value = PlayerPrefs.GetFloat("vValue");
+        }
     }
 
     private void Update()
@@ -89,11 +105,11 @@ public class PlayerController : MonoBehaviour
                 currentGrav = normalGrav;
             }
 
-            cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().enabled = true;
+            pov.enabled = true;
         }
         else
         {
-            cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().enabled = false;
+            pov.enabled = false;
             if(isGrounded) _playerRigidbody.velocity = Vector3.zero;
         }
     }
@@ -227,5 +243,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void CurrentPos()
+    {
+        PlayerPrefs.SetFloat("x", transform.position.x);
+        PlayerPrefs.SetFloat("y", transform.position.y);
+        PlayerPrefs.SetFloat("z", transform.position.z);
 
+        PlayerPrefs.SetFloat("vValue", pov.m_VerticalAxis.Value);
+        PlayerPrefs.SetFloat("hValue", pov.m_HorizontalAxis.Value);
+    }
 }

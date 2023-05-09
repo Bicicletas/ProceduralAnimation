@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea88e3400005de498e70ea601f7e7a1, type: 3}
   m_Name: RockSpawner
   m_EditorClassIdentifier: 
-  numOfObject: 35
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -24,4 +23,5 @@ MonoBehaviour:
   objects:
   - {fileID: 8806264036039113544, guid: 4275fe8c84813ee419555efb47da4d36, type: 3}
   worldInstance: 0
-  randomScale: 15
+  childInstance: 1
+  randomScale: 1
