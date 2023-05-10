@@ -17,7 +17,7 @@ MonoBehaviour:
     m_Bits: 64
   minObjectSpawnThreshold: 10
   maxObjectSpawnThreshold: 45
-  objectSpawnOffsetY: -0.3
+  objectSpawnOffsetY: -0.25
   minScale: 1.2
   maxScale: 1.8
   objects:

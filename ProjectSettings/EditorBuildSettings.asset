@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/MainScenes/MainMenu.unity
     guid: 72057552627c8904c945072483798abc
   - enabled: 1
-    path: Assets/Scenes/InfiniteLands.unity
+    path: Assets/Scenes/MainScenes/InfiniteLands.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}

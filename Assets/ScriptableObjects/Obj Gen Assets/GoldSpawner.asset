@@ -17,11 +17,11 @@ MonoBehaviour:
     m_Bits: 64
   minObjectSpawnThreshold: 8
   maxObjectSpawnThreshold: 80
-  objectSpawnOffsetY: -0.4
+  objectSpawnOffsetY: -0.25
   minScale: 1
   maxScale: 2
   objects:
   - {fileID: 2858859453243860480, guid: 789a4894825356b42a5d196d8617f238, type: 3}
   worldInstance: 0
   childInstance: 1
-  randomScale: 1
+  randomScale: 20

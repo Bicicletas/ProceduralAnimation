@@ -15,6 +15,8 @@ public class PauseMenu : MonoBehaviour
     [Space]
     [SerializeField] GameObject[] otherUI;
     [SerializeField] GameObject inventoryMenu;
+    [Space]
+    public GameObject saveButton;
 
     [Header("UI Postproces Effect")]
     [Space]
@@ -45,6 +47,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         PasueMenu.SetActive(false);
+        saveButton.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         PlayerController.canMove = true;
         pp.SetActive(false);
@@ -58,6 +61,12 @@ public class PauseMenu : MonoBehaviour
         PlayerController.canMove = false;
         pp.SetActive(true);
         UpdateOtherUI(false);
+    }
+
+    public void Quit(string scene)
+    {
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(scene);
     }
 
     public void SaveQuit(string scene)
