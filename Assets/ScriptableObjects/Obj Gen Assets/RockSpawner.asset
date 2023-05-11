@@ -18,10 +18,10 @@ MonoBehaviour:
   minObjectSpawnThreshold: 10
   maxObjectSpawnThreshold: 45
   objectSpawnOffsetY: -0.25
-  minScale: 1.2
-  maxScale: 1.8
+  minScale: 1
+  maxScale: 3
   objects:
   - {fileID: 8806264036039113544, guid: 4275fe8c84813ee419555efb47da4d36, type: 3}
   worldInstance: 0
   childInstance: 1
-  randomScale: 1
+  randomScale: 3

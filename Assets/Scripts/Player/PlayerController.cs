@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     [Header("Gravity Modifier\n")]
     public float normalGrav = -10f;
 
-    private float currentGrav;
+    public float currentGrav;
 
     private float oneUnit = 1f;
     private float halfUnit = .5f;
@@ -91,12 +91,12 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
                 _playerRigidbody.drag = groundDrag;
-                Physics.gravity = new Vector3(0, normalGrav, 0);
+                Physics.gravity = new Vector3(0, currentGrav, 0);
             }
             else
             {
                 _playerRigidbody.drag = oneUnit;
-                Physics.gravity = new Vector3(0, normalGrav * 2, 0);
+                Physics.gravity = new Vector3(0, currentGrav * 2, 0);
             }
 
 

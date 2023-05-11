@@ -6,24 +6,53 @@ using TMPro;
 public class ObjectGenerator : MonoBehaviour
 {
     [SerializeField] float spawnDelay = 0.8f;
+    [Range(0, 1)]
     [SerializeField] float repeatSpawnRate = 0.8f;
     [SerializeField] float sizeOffset = 50;
     [SerializeField] float rayOriginY = 80;
     [SerializeField] int maxObjectsPerChunk = 10;
+    [Range(0.1f, 1)]
+    [SerializeField] float radius = .5f;
 
     [SerializeField] Settings[] settings;
 
-    private void Start()
+    bool canSpawn = true;
+
+    private void Update()
     {
-        InvokeRepeating("PassSettings", spawnDelay, repeatSpawnRate);
+        if (canSpawn)
+        {
+            canSpawn = false;
+            StartCoroutine(InvokeRepeating());
+        }
+        //InvokeRepeating("PassSettings", spawnDelay, repeatSpawnRate);
+    }
+
+    IEnumerator InvokeRepeating()
+    {
+        PassSettings();
+        yield return new WaitForSeconds(repeatSpawnRate);
+        canSpawn = true;
     }
 
     Vector2 RandomPos(Vector3 parentPos)
     {
+        //Vector2 randomPos = Random.insideUnitCircle;
+
         float x = Random.Range(parentPos.x - sizeOffset, parentPos.x + sizeOffset);
         float z = Random.Range(parentPos.z - sizeOffset, parentPos.z + sizeOffset);
 
+        /*
+        float ranX = randomPos.x;
+        float ranY = randomPos.y;
+
+        float x = (parentPos.x + sizeOffset) * (Mathf.Abs(ranX) > radius ? ranX : ranX > 0 ? radius : -radius);
+        float z = (parentPos.z + sizeOffset) * (Mathf.Abs(ranY) > radius ? ranY : ranY > 0 ? radius : -radius);
+        */
+
         return new Vector2(x, z);
+
+        
     }
 
     void PassSettings()
@@ -40,6 +69,16 @@ public class ObjectGenerator : MonoBehaviour
         Vector3 position = new Vector3(RandomPos(transform.position).x, rayOriginY, RandomPos(transform.position).y);
 
         RaycastHit hit;
+
+        if (Mathf.Abs(position.x) > (Mathf.Abs(transform.position.x) + sizeOffset) / 2 && Mathf.Abs(position.z) > (Mathf.Abs(transform.position.z) + sizeOffset) / 2)
+        {
+            //print(position + "instanced" + transform.position);
+            
+        }
+        else
+        {
+            //print(position);
+        }
 
         if (Physics.Raycast(position, Vector3.down, out hit, 100f, s.whatIsGround))
         {
@@ -61,16 +100,6 @@ public class ObjectGenerator : MonoBehaviour
                     InstantiateObject(s, instance, hit);
                 }
             }
-        }
-
-        if (Mathf.Abs(position.x) > (Mathf.Abs(transform.position.x) + sizeOffset) / 2 && Mathf.Abs(position.z) > (Mathf.Abs(transform.position.z) + sizeOffset) / 2)
-        {
-            //print(position + "caca" + transform.position);
-            
-        }
-        else
-        {
-            //print(position);
         }
     }
 
