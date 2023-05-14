@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDataPersistence
 {
     public static PlayerController instance;
 
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private bool isSwiming;
 
     [Header("Speed Parametres\n")]
-    [SerializeField] private float force = 30f;
+    public float force = 30f;
     [SerializeField] private float groundDrag = 10f;
     [SerializeField] float rayOffset = .5f;
     [SerializeField] private float airMultiplyer;
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection;
 
     [Header("Jump Parametres\n")]
-    [SerializeField] private float jumpForce = 10f;
+    public float jumpForce = 10f;
     [SerializeField] private float jumpCooldown;
     [SerializeField] private float playerHight;
 
@@ -49,6 +49,11 @@ public class PlayerController : MonoBehaviour
 
     public float currentGrav;
 
+    [Header("Interact parameters")]
+    [SerializeField] private LayerMask whatIsItems;
+
+    [SerializeField] float interactDist = 5f;
+
     private float oneUnit = 1f;
     private float halfUnit = .5f;
     private float dobleUnit = 2f;
@@ -59,23 +64,36 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        _playerRigidbody = GetComponent<Rigidbody>();
+        pov = cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>();
     }
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        _playerRigidbody = GetComponent<Rigidbody>();
-        pov = cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>();
+       
         Camera.main.layerCullSpherical = true;
         canMove = true;
         currentGrav = normalGrav;
+    }
 
-        if (PlayerPrefs.HasKey("x"))
-        {
-            transform.position = new Vector3(PlayerPrefs.GetFloat("x"), PlayerPrefs.GetFloat("y") + 2, PlayerPrefs.GetFloat("z"));
-            pov.m_HorizontalAxis.Value = PlayerPrefs.GetFloat("hValue");
-            pov.m_VerticalAxis.Value = PlayerPrefs.GetFloat("vValue");
-        }
+    public void SaveData(GameData data)
+    {
+        data.playerPosition = new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z);
+        data.hValue = this.pov.m_HorizontalAxis.Value;
+        data.vValue = this.pov.m_VerticalAxis.Value;
+        data.speed = this.force;
+        data.jumpForce = this.jumpForce;
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+        this.pov.m_HorizontalAxis.Value = data.hValue;
+        this.pov.m_VerticalAxis.Value = data.vValue;
+        this.force = data.speed;
+        this.jumpForce = data.jumpForce;
     }
 
     private void Update()
@@ -87,7 +105,8 @@ public class PlayerController : MonoBehaviour
         {
             PlayerInput();
             SpeedControl();
-            
+            CollectItem();
+
             if (isGrounded)
             {
                 _playerRigidbody.drag = groundDrag;
@@ -128,11 +147,22 @@ public class PlayerController : MonoBehaviour
             || Physics.Raycast(new Vector3(transform.position.x - rayOffset, transform.position.y, transform.position.z), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund) 
             || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund)
             || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
+    }
 
-        Debug.DrawRay(new Vector3(transform.position.x + rayOffset, transform.position.y, transform.position.z), Vector3.down);
-        Debug.DrawRay(new Vector3(transform.position.x - rayOffset, transform.position.y, transform.position.z), Vector3.down);
-        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z + rayOffset), Vector3.down);
-        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z - rayOffset), Vector3.down);
+    void CollectItem()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (Physics.Raycast(ray, out hit, interactDist, whatIsItems))
+            {
+                ItemPickup itemPickup = hit.transform.GetComponent<ItemPickup>();
+
+                itemPickup.PickUpItem(Inventory.instance);
+            }
+        }
     }
 
     //All the inputs on whitch the player depends to move arround

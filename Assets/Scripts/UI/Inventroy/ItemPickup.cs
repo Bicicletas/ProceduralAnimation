@@ -11,11 +11,7 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Inventory playerInventory = other.GetComponentInChildren<Inventory>();
-
-            if (playerInventory != null) PickUpItem(playerInventory);
-
-            playerInventory.GetItemAmount();
+            if (Inventory.instance != null) PickUpItem(Inventory.instance);
         }
     }
 
@@ -24,6 +20,8 @@ public class ItemPickup : MonoBehaviour
         amount = inventory.AddItem(itemToDrop, amount);
 
         if (amount < 1) Destroy(this.gameObject.transform.parent.gameObject);
+
+        inventory.GetItems();
     }
 
 }

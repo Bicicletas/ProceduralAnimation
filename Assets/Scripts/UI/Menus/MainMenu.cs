@@ -9,11 +9,7 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey("x"))
-        {
-            continueButton.SetActive(true);
-        }
-        else
+        if (!DataPersistenceManager.instance.HasGameData())
         {
             continueButton.SetActive(false);
         }
@@ -21,14 +17,13 @@ public class MainMenu : MonoBehaviour
 
     public void Play(string scene)
     {
-        PlayerPrefs.DeleteAll();
-        print("PlayerPrefs Delated");
-        SceneManager.LoadScene(scene);
+        DataPersistenceManager.instance.NewGame();
+        SceneManager.LoadSceneAsync(scene);
     }
 
     public void Continue(string scene)
     {
-        SceneManager.LoadScene(scene);
+        SceneManager.LoadSceneAsync(scene);
     }
 
     public void Quit()

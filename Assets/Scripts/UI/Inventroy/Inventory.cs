@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.EventSystems;
 using TMPro;
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, IDataPersistence
 {
     [SerializeReference] public List<ItemSlotInfo> items = new List<ItemSlotInfo>();
 
@@ -39,11 +39,7 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
         for (int i = 0; i < inventorySize; i++)
         {
             items.Add(new ItemSlotInfo(null, 0));
@@ -51,7 +47,7 @@ public class Inventory : MonoBehaviour
 
         List<Item> allItems = GetAllItems().ToList();
         string itemsInDictionary = "Items in Dictionary: ";
-        foreach(Item i in allItems)
+        foreach (Item i in allItems)
         {
             if (!allItemsDictionary.ContainsKey(i.GiveName()))
             {
@@ -64,45 +60,46 @@ public class Inventory : MonoBehaviour
             }
         }
         itemsInDictionary += ".";
-
-        if (PlayerPrefs.HasKey("Rock") && PlayerPrefs.GetInt("Rock") > 0)
-        {
-            AddItem("Rock", PlayerPrefs.GetInt("Rock"));
-        }
-
-        if (PlayerPrefs.HasKey("Crystal") && PlayerPrefs.GetInt("Crystal") > 0)
-        {
-            AddItem("Crystal", PlayerPrefs.GetInt("Crystal"));
-        }
-
-        if (PlayerPrefs.HasKey("Gold") && PlayerPrefs.GetInt("Gold") > 0)
-        {
-            AddItem("Gold", PlayerPrefs.GetInt("Gold"));
-        }
-
-        GetItemAmount();
     }
 
-    public void GetItemAmount()
+    // Start is called before the first frame update
+    void Start()
+    {
+        Invoke(nameof(GetItems), .5f);
+    }
+
+    public void LoadData(GameData data)
+    {
+        if (data.rock > 0) AddItem("Rock", data.rock);
+        if (data.crystal > 0) AddItem("Crystal", data.crystal);
+        if (data.gold > 0) AddItem("Gold", data.gold);
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.rock = GetItemAmount("Rock", 0);
+        data.crystal = GetItemAmount("Crystal", 1);
+        data.gold = GetItemAmount("Gold", 2);
+    }
+
+    public void GetItems()
+    {
+        GetItemAmount("Rock", 0);
+        GetItemAmount("Crystal", 1);
+        GetItemAmount("Gold", 2);
+    }
+
+    public int GetItemAmount(string itemName, int i)
     {
         RefreshInventory();
 
-        List<ItemPanel> ip = new List<ItemPanel>();
-
-        foreach (Transform t in itemPanelGrid.transform)
-        {
-            ip.Add(t.GetComponent<ItemPanel>());
-        }
-
-        SetItemAmount(ip, "Rock", 0, rockIndex);
-        SetItemAmount(ip, "Crystal", 1, crystalIndex);
-        SetItemAmount(ip, "Gold", 2, goldIndex);
-        
-        ip.Clear();
+        return SetItemAmount(existingPanels, itemName, i); ;
     }
 
-    void SetItemAmount(List<ItemPanel> ips, string item, int i, List<int> itemIndex)
+    int SetItemAmount(List<ItemPanel> ips, string item, int i)
     {
+        List<int> itemIndex = new List<int>();
+
         foreach (ItemPanel ip in ips)
         {
             if (ip.itemImage.sprite != null)
@@ -121,10 +118,9 @@ public class Inventory : MonoBehaviour
             finalValue += y;
         }
 
-        PlayerPrefs.SetInt(item, finalValue);
         itemAmountText[i].text = item + " " + finalValue.ToString();
 
-        itemIndex.Clear();
+        return finalValue;
     }
 
     // Update is called once per frame
@@ -132,12 +128,6 @@ public class Inventory : MonoBehaviour
     {
 #if UNITY_EDITOR
 #endif
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            PlayerPrefs.DeleteAll();
-            print("PlayerPrefs Delated");
-        }
         
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -176,6 +166,21 @@ public class Inventory : MonoBehaviour
         {
             g.SetActive(b);
         }
+    }
+
+    public void EmptyInventoryAndRefill(string[] itemName, int[] itemAmount)
+    {
+        foreach(ItemPanel ip in existingPanels)
+        {
+            ClearSlot(ip.itemSlot);
+        }
+
+        for (int y = 0; y < itemName.Length; y++)
+        {
+            AddItem(itemName[y], itemAmount[y]);
+        }
+
+        RefreshInventory();
     }
 
     public void RefreshInventory()
@@ -324,7 +329,7 @@ public class Inventory : MonoBehaviour
         mouse.EmptySlot();
         RefreshInventory();
 
-        GetItemAmount();
+        GetItems();
     }
 
     public void ClearSlot(ItemSlotInfo slot)

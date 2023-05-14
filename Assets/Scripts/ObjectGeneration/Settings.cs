@@ -17,7 +17,7 @@ public class Settings : ScriptableObject
     public float maxScale = 2;
     public GameObject[] objects;
     public bool worldInstance = false;
-    public bool childInstance = true;
+    public bool childInstanceScale = true;
     [Tooltip("Applied if random scale is greater than 0")]
     public int randomScale = 10;
 

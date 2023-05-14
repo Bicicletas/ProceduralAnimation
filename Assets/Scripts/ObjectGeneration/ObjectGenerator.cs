@@ -5,14 +5,11 @@ using TMPro;
 
 public class ObjectGenerator : MonoBehaviour
 {
-    [SerializeField] float spawnDelay = 0.8f;
     [Range(0, 1)]
     [SerializeField] float repeatSpawnRate = 0.8f;
     [SerializeField] float sizeOffset = 50;
     [SerializeField] float rayOriginY = 80;
     [SerializeField] int maxObjectsPerChunk = 10;
-    [Range(0.1f, 1)]
-    [SerializeField] float radius = .5f;
 
     [SerializeField] Settings[] settings;
 
@@ -117,15 +114,13 @@ public class ObjectGenerator : MonoBehaviour
 
         float scale = s.RandomScale();
 
-        if (s.childInstance)
+        if (s.childInstanceScale)
         {
             instance.transform.GetChild(0).localScale = new Vector3(scale, scale, scale);
-            print("item");
         }
         else
         {
             instance.transform.localScale = new Vector3(scale, scale, scale);
-            print(instance.transform.position);
         }
     }
 
