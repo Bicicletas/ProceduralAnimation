@@ -86,13 +86,13 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
     public void SpeedBoost(PowerUp powerUp)
     {
 
-        if (speedBoostAmount <= powerUp.maxAmount && itemAmount[0] >= powerUp.boostPrices)
+        if (speedBoostAmount < powerUp.maxAmount && itemAmount[0] >= powerUp.boostPrices)
         {
             itemAmount[0] -= powerUp.boostPrices;
 
-            speedMult *= (speedBoostAmount + 1);
+            //speedMult *= (speedBoostAmount + 1);
 
-            PlayerController.instance.force += speedMult;
+            PlayerController.instance.force *= speedMult;
 
             speedBoostAmount++;
 
@@ -104,13 +104,13 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
 
     public void JumpBoost(PowerUp powerUp)
     {
-        if (jumpBoostAmount <= powerUp.maxAmount && itemAmount[0] >= powerUp.boostPrices)
+        if (jumpBoostAmount < powerUp.maxAmount && itemAmount[0] >= powerUp.boostPrices)
         {
             itemAmount[0] -= powerUp.boostPrices;
 
-            jumpMult *= (jumpBoostAmount + 1);
+            //jumpMult *= (jumpBoostAmount + 1);
 
-            PlayerController.instance.jumpForce += jumpMult;
+            PlayerController.instance.jumpForce *= jumpMult;
 
             jumpBoostAmount++;
 

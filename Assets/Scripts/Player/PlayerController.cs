@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [Header("Gravity Modifier\n")]
     public float normalGrav = -10f;
 
+    public float waterGrav = -3f;
+
     public float currentGrav;
 
     [Header("Interact parameters")]
@@ -184,7 +186,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             }
             else if (isWatered)
             {
-                currentGrav = Mathf.Lerp(currentGrav, 10, Time.deltaTime * lerpSpeed);
+                currentGrav = Mathf.Lerp(currentGrav, Mathf.Abs(normalGrav / 2), Time.deltaTime * lerpSpeed);
                 isSwiming = true;
             }
         }
@@ -192,6 +194,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             isSwiming = false;
             currentGrav = normalGrav;
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (isWatered)
+            {
+                currentGrav = Mathf.Lerp(currentGrav, normalGrav / 2, Time.deltaTime * lerpSpeed);
+                isSwiming = true;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -260,8 +271,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if ((whatIsWater.value & (1 << other.transform.gameObject.layer)) > 0)
         {
+            if (!isSwiming) currentGrav = waterGrav;
             isWatered = true;
-            if(!isSwiming) currentGrav = -5;
         }
     }
 
