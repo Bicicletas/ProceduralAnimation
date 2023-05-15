@@ -22,6 +22,7 @@ public class DayNightCycle : MonoBehaviour
         //RenderSettings.fogColor = sun.color * fogMultiplier;
         RenderSettings.fogColor = skybox.GetColor("_HorizonColor") * fogMultiplier;
         RenderSettings.ambientLight = skybox.GetColor("_HorizonColor") * fogMultiplier;
+        RenderSettings.reflectionIntensity = (sun.intensity / 2) - 1;
 
         rotationSpeed += Time.deltaTime * speed;
 

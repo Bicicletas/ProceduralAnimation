@@ -102,12 +102,14 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, cam.transform.eulerAngles.y, transform.eulerAngles.z);
 
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
         //Restricting the movement of the player with a boolean
         if (canMove)
         {
             PlayerInput();
             SpeedControl();
-            CollectItem();
+            CollectItem(ray);
 
             if (isGrounded)
             {
@@ -151,10 +153,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
     }
 
-    void CollectItem()
+    void CollectItem(Ray ray)
     {
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Input.GetKeyDown(KeyCode.E))
         {

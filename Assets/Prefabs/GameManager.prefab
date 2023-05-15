@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initializeDataIfNull: 0
   fileName: data
-  useEncryption: 1
+  useEncryption: 0
