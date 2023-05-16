@@ -22,7 +22,6 @@ public class ObjectGenerator : MonoBehaviour
             canSpawn = false;
             StartCoroutine(InvokeRepeating());
         }
-        //InvokeRepeating("PassSettings", spawnDelay, repeatSpawnRate);
     }
 
     IEnumerator InvokeRepeating()
@@ -34,22 +33,10 @@ public class ObjectGenerator : MonoBehaviour
 
     Vector2 RandomPos(Vector3 parentPos)
     {
-        //Vector2 randomPos = Random.insideUnitCircle;
-
         float x = Random.Range(parentPos.x - sizeOffset, parentPos.x + sizeOffset);
         float z = Random.Range(parentPos.z - sizeOffset, parentPos.z + sizeOffset);
 
-        /*
-        float ranX = randomPos.x;
-        float ranY = randomPos.y;
-
-        float x = (parentPos.x + sizeOffset) * (Mathf.Abs(ranX) > radius ? ranX : ranX > 0 ? radius : -radius);
-        float z = (parentPos.z + sizeOffset) * (Mathf.Abs(ranY) > radius ? ranY : ranY > 0 ? radius : -radius);
-        */
-
         return new Vector2(x, z);
-
-        
     }
 
     void PassSettings()
@@ -67,17 +54,7 @@ public class ObjectGenerator : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Mathf.Abs(position.x) > (Mathf.Abs(transform.position.x) + sizeOffset) / 2 && Mathf.Abs(position.z) > (Mathf.Abs(transform.position.z) + sizeOffset) / 2)
-        {
-            //print(position + "instanced" + transform.position);
-            
-        }
-        else
-        {
-            //print(position);
-        }
-
-        if (Physics.Raycast(position, Vector3.down, out hit, 100f, s.whatIsGround))
+        if (Physics.Raycast(position, Vector3.down, out hit, 200f, s.whatToCollide))
         {
             if (hit.point.y > s.minObjectSpawnThreshold && hit.point.y < s.maxObjectSpawnThreshold)
             {
@@ -120,6 +97,7 @@ public class ObjectGenerator : MonoBehaviour
         }
         else
         {
+            print("portal");
             instance.transform.localScale = new Vector3(scale, scale, scale);
         }
     }
@@ -133,8 +111,5 @@ public class ObjectGenerator : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, sizeOffset);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, sizeOffset / 2);
     }
 }

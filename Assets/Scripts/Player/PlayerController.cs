@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [HideInInspector] public float horizontalInput;
     [HideInInspector] public float verticalInput;
 
-    public bool isWatered = false;
+    public bool isInWater = false;
 
     public float lerpSpeed;
 
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             }
 
 
-            if (!isWatered)
+            if (!isInWater)
             {
                 currentGrav = normalGrav;
             }
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         else
         {
             pov.enabled = false;
-            if(isGrounded) _playerRigidbody.velocity = Vector3.zero;
+            _playerRigidbody.velocity = Vector3.zero;
         }
     }
 
@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         //Jump if the player is on the ground
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.JoystickButton0))
         {
-            if (canJump && isGrounded)
+            if (canJump && isGrounded && !isInWater)
             {
                 canJump = false;
 
@@ -185,7 +185,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
                 Invoke(nameof(JumpReset), jumpCooldown);
             }
-            else if (isWatered)
+
+            if (isInWater)
             {
                 currentGrav = Mathf.Lerp(currentGrav, Mathf.Abs(normalGrav / 2), Time.deltaTime * lerpSpeed);
                 isSwiming = true;
@@ -199,7 +200,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            if (isWatered)
+            if (isInWater)
             {
                 currentGrav = Mathf.Lerp(currentGrav, normalGrav / 2, Time.deltaTime * lerpSpeed);
                 isSwiming = true;
@@ -231,6 +232,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             {
                 _playerRigidbody.AddForce(moveDirection.normalized * force * normalForceMulti, ForceMode.Force);
             }
+        }
+        else if (isInWater)
+        {
+            _playerRigidbody.AddForce(moveDirection.normalized * force * (normalForceMulti / dobleUnit) * airMultiplyer, ForceMode.Force);
         }
         else
         {
@@ -273,7 +278,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if ((whatIsWater.value & (1 << other.transform.gameObject.layer)) > 0)
         {
             if (!isSwiming) currentGrav = waterGrav;
-            isWatered = true;
+            isInWater = true;
         }
     }
 
@@ -281,7 +286,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if ((whatIsWater.value & (1 << other.transform.gameObject.layer)) > 0)
         {
-            isWatered = false;
+            isInWater = false;
         }
     }
 

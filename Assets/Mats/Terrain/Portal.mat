@@ -86,7 +86,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaCut: 0.88
     - _AlphaCutPower: 0.7
-    - _AlphaCutScale: 0.213
+    - _AlphaCutScale: 0.3
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -107,14 +107,14 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 50
     - _ReceiveShadows: 1
-    - _Scale: 3.25
+    - _Scale: 10.5
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.02
+    - _Speed: 0.1
     - _SrcBlend: 1
     - _Surface: 0
-    - _TwirlStrenght: 67.13
+    - _TwirlStrenght: 75
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:

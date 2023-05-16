@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea88e3400005de498e70ea601f7e7a1, type: 3}
   m_Name: CrystalSpawner
   m_EditorClassIdentifier: 
-  whatIsGround:
+  whatToCollide:
     serializedVersion: 2
     m_Bits: 64
   minObjectSpawnThreshold: 26
   maxObjectSpawnThreshold: 80
   objectSpawnOffsetY: -0.35
+  childInstanceScale: 1
   minScale: 2
   maxScale: 4
   objects:
   - {fileID: 7505952990999483754, guid: 067cd6faaf9641e43856395addf9a9d4, type: 3}
   worldInstance: 0
-  childInstance: 1
   randomScale: 5

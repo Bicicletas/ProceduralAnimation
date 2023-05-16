@@ -48,18 +48,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Depth_Fade: 6
+    - _Depth_Fade: 7.9
     - _Flat_Shaded: 1
     - _FoamWidth: 0.54
-    - _Height: 0.004
+    - _Height: 0.011
     - _Noise_Scale: 4
     - _Normal_Strenght: -0.05
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 0.61
+    - _Smoothness: 0.5
     - _Water_Scroll_Speed: 0.13
     m_Colors:
-    - _Deep: {r: 0.5990566, g: 0.7885436, b: 1, a: 1}
+    - _Deep: {r: 0.33107865, g: 0.5304379, b: 0.754717, a: 1}
     - _Foam_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Shallow: {r: 0, g: 0.23044766, b: 0.754717, a: 1}
+    - _Shallow: {r: 0, g: 0.23044759, b: 0.75471693, a: 1}
   m_BuildTextureStacks: []
