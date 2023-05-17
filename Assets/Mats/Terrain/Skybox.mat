@@ -27,13 +27,13 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _HorizonBlend: 1
     - _NadirBlend: 1
-    - _Smoothness: 0.099999905
+    - _Smoothness: 0.2538166
     - _ZenithBlend: 2
     m_Colors:
     - _Emission: {r: 1, g: 1, b: 1, a: 0}
-    - _GroundColor: {r: 0.58009046, g: 0.31776163, b: 0.29900405, a: 1}
-    - _HorizonColor: {r: 0.5800905, g: 0.31776166, b: 0.29900408, a: 1}
-    - _SkyColor: {r: 1.160181, g: 0.6355233, b: 0.59800816, a: 2}
+    - _GroundColor: {r: 0.7705795, g: 0.55613625, b: 0.39275452, a: 1}
+    - _HorizonColor: {r: 0.77057946, g: 0.5561363, b: 0.39275455, a: 1}
+    - _SkyColor: {r: 1.5411589, g: 1.1122726, b: 0.7855091, a: 2}
   m_BuildTextureStacks: []
 --- !u!114 &3998559841746064732
 MonoBehaviour:

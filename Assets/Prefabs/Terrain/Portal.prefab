@@ -525,5 +525,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 7420146592598880450}
-  lifeTimeMinutes: 0.35
+  lifeTimeMinutes: 1
   currentTime: 0
