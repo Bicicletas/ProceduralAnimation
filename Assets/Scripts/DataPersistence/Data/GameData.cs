@@ -26,8 +26,8 @@ public class GameData
         this.hValue = 0;
         this.speedBoostAmount = 0;
         this.jumpBoostAmount = 0;
-        this.speed = 26;
-        this.jumpForce = 20;
+        this.speed = 24;
+        this.jumpForce = 15;
         playerPosition = new Vector3(0, 8, 0);
     }
 }

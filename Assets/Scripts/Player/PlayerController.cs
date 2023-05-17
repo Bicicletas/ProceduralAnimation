@@ -8,9 +8,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public static PlayerController instance;
 
     [SerializeField] GameObject cam;
-    CinemachinePOV pov;
+    CinemachineFreeLook freeLookCam;
 
     [HideInInspector] public Rigidbody _playerRigidbody;
+    [SerializeField] Animator _playerAnimator;
 
     [HideInInspector] public static bool canMove = true;
     [HideInInspector] public bool activateSpeedControl = true;
@@ -31,7 +32,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public float lerpSpeed;
 
-    private Vector3 moveDirection;
+    public Vector3 moveDirection;
 
     [Header("Jump Parametres\n")]
     public float jumpForce = 10f;
@@ -68,7 +69,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         instance = this;
 
         _playerRigidbody = GetComponent<Rigidbody>();
-        pov = cam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>();
+        freeLookCam = cam.GetComponent<CinemachineFreeLook>();
     }
 
     void Start()
@@ -83,8 +84,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public void SaveData(GameData data)
     {
         data.playerPosition = new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z);
-        data.hValue = this.pov.m_HorizontalAxis.Value;
-        data.vValue = this.pov.m_VerticalAxis.Value;
+        data.hValue = this.freeLookCam.m_XAxis.Value;
+        data.vValue = this.freeLookCam.m_YAxis.Value;
         data.speed = this.force;
         data.jumpForce = this.jumpForce;
     }
@@ -92,15 +93,17 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         this.transform.position = data.playerPosition;
-        this.pov.m_HorizontalAxis.Value = data.hValue;
-        this.pov.m_VerticalAxis.Value = data.vValue;
+        this.freeLookCam.m_XAxis.Value = data.hValue;
+        this.freeLookCam.m_YAxis.Value = data.vValue;
         this.force = data.speed;
         this.jumpForce = data.jumpForce;
     }
 
     private void Update()
     {
-        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, cam.transform.eulerAngles.y, transform.eulerAngles.z);
+        
+
+        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, freeLookCam.m_XAxis.Value, transform.eulerAngles.z);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -128,11 +131,11 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 currentGrav = normalGrav;
             }
 
-            pov.enabled = true;
+            freeLookCam.enabled = true;
         }
         else
         {
-            pov.enabled = false;
+            freeLookCam.enabled = false;
             _playerRigidbody.velocity = Vector3.zero;
         }
     }
@@ -143,6 +146,34 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (canMove)
         {
             MovePlayer();
+        }
+
+        if (moveDirection != Vector3.zero)
+        {
+            _playerAnimator.SetBool("IsRunning", true);
+
+            if (isRunning)
+            {
+                _playerAnimator.speed = 1.4f;
+            }
+            else
+            {
+                _playerAnimator.speed = 1f;
+            }
+        }
+        else
+        {
+            _playerAnimator.SetBool("IsRunning", false);
+        }
+
+        if (_playerAnimator.GetBool("IsJumping") && canJump)
+        {
+            _playerAnimator.SetBool("IsJumping", false);
+        }
+
+        if (!isGrounded)
+        {
+            _playerAnimator.SetBool("IsInWater", isInWater);
         }
 
         //Raycast that checks if the player is touching the ground
@@ -179,6 +210,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             if (canJump && isGrounded && !isInWater)
             {
+                _playerAnimator.SetBool("IsJumping", true);
+
+                _playerAnimator.Play("Jump");
+
                 canJump = false;
 
                 JumpMechanic();
@@ -262,6 +297,12 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     //When called this function adds an upwards force to the player
     void JumpMechanic()
     {
+        print("caca");
+
+        _playerAnimator.Play("Jump");
+
+        _playerAnimator.SetBool("IsJumping", true);
+
         _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, 0f, _playerRigidbody.velocity.z);
 
         _playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -288,15 +329,5 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             isInWater = false;
         }
-    }
-
-    public void CurrentPos()
-    {
-        PlayerPrefs.SetFloat("x", transform.position.x);
-        PlayerPrefs.SetFloat("y", transform.position.y);
-        PlayerPrefs.SetFloat("z", transform.position.z);
-
-        PlayerPrefs.SetFloat("vValue", pov.m_VerticalAxis.Value);
-        PlayerPrefs.SetFloat("hValue", pov.m_HorizontalAxis.Value);
     }
 }
