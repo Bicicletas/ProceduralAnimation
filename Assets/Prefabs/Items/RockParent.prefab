@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemToDrop: Rock
-  amount: 3
+  amount: 2
 --- !u!135 &1994549475949099029
 SphereCollider:
   m_ObjectHideFlags: 0

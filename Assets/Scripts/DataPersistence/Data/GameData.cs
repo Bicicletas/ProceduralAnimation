@@ -12,8 +12,10 @@ public class GameData
     public float vValue;
     public int speedBoostAmount;
     public int jumpBoostAmount;
-    public float speed;
-    public float jumpForce;
+    public float speedMult;
+    public float jumpMult;
+    public int minimap;
+    public int flashlight;
     public Vector3 playerPosition;
 
     // the values defined in this constructor will be the default values
@@ -26,8 +28,10 @@ public class GameData
         this.hValue = 0;
         this.speedBoostAmount = 0;
         this.jumpBoostAmount = 0;
-        this.speed = 24;
-        this.jumpForce = 15;
+        this.speedMult = 5;
+        this.jumpMult = 8;
+        this.minimap = 0;
+        this.flashlight = 0;
         playerPosition = new Vector3(0, 8, 0);
     }
 }

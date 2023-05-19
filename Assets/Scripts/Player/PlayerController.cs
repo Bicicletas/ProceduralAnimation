@@ -86,8 +86,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         data.playerPosition = new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z);
         data.hValue = this.freeLookCam.m_XAxis.Value;
         data.vValue = this.freeLookCam.m_YAxis.Value;
-        data.speed = this.force;
-        data.jumpForce = this.jumpForce;
     }
 
     public void LoadData(GameData data)
@@ -95,14 +93,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         this.transform.position = data.playerPosition;
         this.freeLookCam.m_XAxis.Value = data.hValue;
         this.freeLookCam.m_YAxis.Value = data.vValue;
-        this.force = data.speed;
-        this.jumpForce = data.jumpForce;
     }
 
     private void Update()
     {
-        
-
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, freeLookCam.m_XAxis.Value, transform.eulerAngles.z);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -166,14 +160,25 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             _playerAnimator.SetBool("IsRunning", false);
         }
 
-        if (_playerAnimator.GetBool("IsJumping") && canJump)
+        if (_playerAnimator.GetBool("IsJumping") && canJump && isGrounded)
         {
             _playerAnimator.SetBool("IsJumping", false);
         }
 
-        if (!isGrounded)
+        if (!isGrounded && isInWater)
         {
-            _playerAnimator.SetBool("IsInWater", isInWater);
+            _playerAnimator.SetBool("IsInWater", true);
+        }
+        else
+        {
+            _playerAnimator.SetBool("IsInWater", false);
+
+            _playerAnimator.SetBool("IsFalling", false);
+        }
+
+        if (_playerAnimator.GetBool("IsRunning") && !isGrounded)
+        {
+            _playerAnimator.SetBool("IsFalling", true);
         }
 
         //Raycast that checks if the player is touching the ground
@@ -261,20 +266,20 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             if (isRunning)
             {
-                _playerRigidbody.AddForce(moveDirection.normalized * force * runningForceMulti, ForceMode.Force);
+                _playerRigidbody.AddForce(moveDirection.normalized * (force + ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount) * runningForceMulti, ForceMode.Force);
             }
             else
             {
-                _playerRigidbody.AddForce(moveDirection.normalized * force * normalForceMulti, ForceMode.Force);
+                _playerRigidbody.AddForce(moveDirection.normalized * (force + ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount) * normalForceMulti, ForceMode.Force);
             }
         }
         else if (isInWater)
         {
-            _playerRigidbody.AddForce(moveDirection.normalized * force * (normalForceMulti / dobleUnit) * airMultiplyer, ForceMode.Force);
+            _playerRigidbody.AddForce(moveDirection.normalized * (force + ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount) * (normalForceMulti / dobleUnit) * airMultiplyer, ForceMode.Force);
         }
         else
         {
-            _playerRigidbody.AddForce(moveDirection.normalized * force * (normalForceMulti - dobleUnit) * airMultiplyer, ForceMode.Force);
+            _playerRigidbody.AddForce(moveDirection.normalized * (force + ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount) * (normalForceMulti - dobleUnit) * airMultiplyer, ForceMode.Force);
         }
     }
 
@@ -297,15 +302,13 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     //When called this function adds an upwards force to the player
     void JumpMechanic()
     {
-        print("caca");
-
         _playerAnimator.Play("Jump");
 
         _playerAnimator.SetBool("IsJumping", true);
 
         _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, 0f, _playerRigidbody.velocity.z);
 
-        _playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        _playerRigidbody.AddForce(Vector3.up * (jumpForce + ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount), ForceMode.Impulse);
     }
 
     //When called set the ability to jump to true

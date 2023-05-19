@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemToDrop: Gold
-  amount: 1
+  amount: 4
 --- !u!135 &4787688684769531871
 SphereCollider:
   m_ObjectHideFlags: 0

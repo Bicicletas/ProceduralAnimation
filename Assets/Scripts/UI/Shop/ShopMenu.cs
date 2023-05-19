@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using TMPro;
 
 public class ShopMenu : MonoBehaviour, IDataPersistence
@@ -14,8 +16,15 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
     [SerializeField] PowerUp[] powerUp;
 
     [Space]
-    [SerializeField] int speedBoostAmount = 0;
-    [SerializeField] int jumpBoostAmount = 0;
+    [SerializeField] GameObject[] objects;
+    [SerializeField] Button[] otherButtons;
+    [SerializeField] GameObject[] shops;
+
+    [Space]
+    public int speedBoostAmount = 0;
+    public int jumpBoostAmount = 0;
+    public int minimap = 0;
+    public int flashlight = 0;
 
     [Header("Item Properties")]
     [Space]
@@ -50,6 +59,8 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
 
         DisplayBoostIndexText(speedBoostAmount, 0);
         DisplayBoostIndexText(jumpBoostAmount, 1);
+        DisplayBoostIndexText(minimap, 2);
+        DisplayBoostIndexText(flashlight, 3);
     }
 
     void DisplayBoostIndexText(int amount, int i)
@@ -69,12 +80,20 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
     {
         data.speedBoostAmount = this.speedBoostAmount;
         data.jumpBoostAmount = this.jumpBoostAmount;
+        data.speedMult = this.speedMult;
+        data.jumpMult = this.jumpMult;
+        data.minimap = this.minimap;
+        data.flashlight = this.flashlight;
     }
 
     public void LoadData(GameData data)
     {
         this.speedBoostAmount = data.speedBoostAmount;
         this.jumpBoostAmount = data.jumpBoostAmount;
+        this.speedMult = data.speedMult;
+        this.jumpMult = data.jumpMult;
+        this.minimap = data.minimap;
+        this.flashlight = data.flashlight;
     }
 
     void PurchaseBoost()
@@ -86,13 +105,11 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
     public void SpeedBoost(PowerUp powerUp)
     {
 
-        if (speedBoostAmount < powerUp.maxAmount && itemAmount[0] >= powerUp.boostPrices)
+        if (speedBoostAmount < powerUp.maxAmount && itemAmount[2] >= powerUp.boostPrices)
         {
-            itemAmount[0] -= powerUp.boostPrices;
+            itemAmount[2] -= powerUp.boostPrices;
 
-            //speedMult *= (speedBoostAmount + 1);
-
-            PlayerController.instance.force *= speedMult;
+            PlayerController.instance.force += speedMult;
 
             speedBoostAmount++;
 
@@ -104,13 +121,11 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
 
     public void JumpBoost(PowerUp powerUp)
     {
-        if (jumpBoostAmount < powerUp.maxAmount && itemAmount[0] >= powerUp.boostPrices)
+        if (jumpBoostAmount < powerUp.maxAmount && itemAmount[2] >= powerUp.boostPrices)
         {
-            itemAmount[0] -= powerUp.boostPrices;
+            itemAmount[2] -= powerUp.boostPrices;
 
-            //jumpMult *= (jumpBoostAmount + 1);
-
-            PlayerController.instance.jumpForce *= jumpMult;
+            PlayerController.instance.jumpForce += jumpMult;
 
             jumpBoostAmount++;
 
@@ -118,6 +133,59 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
         }
 
         PurchaseBoost();
+    }
+
+    public void Minimap(PowerUp powerUp)
+    {
+        if (minimap < powerUp.maxAmount && itemAmount[1] >= powerUp.boostPrices)
+        {
+            itemAmount[1] -= powerUp.boostPrices;
+
+            objects[0].SetActive(true);
+
+            minimap++;
+
+            purchaseAmountTexts[2].text = "" + powerUp.boostName + " " + minimap + " / " + powerUp.maxAmount;
+        }
+
+        PurchaseBoost();
+    }
+    public void Flashlight(PowerUp powerUp)
+    {
+        if (flashlight < powerUp.maxAmount && itemAmount[1] >= powerUp.boostPrices)
+        {
+            itemAmount[1] -= powerUp.boostPrices;
+
+            objects[1].SetActive(true);
+
+            flashlight++;
+
+            purchaseAmountTexts[3].text = "" + powerUp.boostName + " " + flashlight + " / " + powerUp.maxAmount;
+        }
+
+        PurchaseBoost();
+    }
+
+    public void ChangeShop(int i)
+    {
+        foreach (GameObject g in shops)
+        {
+            g.SetActive(false);
+        }
+
+        shops[i].SetActive(true);
+
+        foreach (Button b in otherButtons)
+        {
+            if (b != otherButtons[i])
+            {
+                b.interactable = true;
+            }
+            else
+            {
+                b.interactable = false;
+            }
+        }
     }
 
     public void CloseShop()

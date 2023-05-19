@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemToDrop: Crystal
-  amount: 2
+  amount: 5
 --- !u!135 &1645631505384466802
 SphereCollider:
   m_ObjectHideFlags: 0
