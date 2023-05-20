@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour, IDataPersistence
     public GameObject itemPanel;
     public GameObject itemPanelGrid;
     public GameObject pp;
-    public GameObject[] otherUI;
+    public GameObject otherUI;
 
     [SerializeField] GameObject pauseMenu;
 
@@ -162,10 +162,7 @@ public class Inventory : MonoBehaviour, IDataPersistence
 
     void UpdateOtherUI(bool b)
     {
-        foreach (GameObject g in otherUI)
-        {
-            g.SetActive(b);
-        }
+        otherUI.SetActive(b);
     }
 
     public void EmptyInventoryAndRefill(string[] itemName, int[] itemAmount)
@@ -186,6 +183,7 @@ public class Inventory : MonoBehaviour, IDataPersistence
     public void RefreshInventory()
     {
         existingPanels = itemPanelGrid.GetComponentsInChildren<ItemPanel>().ToList();
+
         //Create Panels if needed
         if (existingPanels.Count < inventorySize)
         {

@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
 
     [Header("UI that should be hiden while paused")]
     [Space]
-    [SerializeField] GameObject[] otherUI;
+    [SerializeField] GameObject otherUI;
     [SerializeField] GameObject inventoryMenu;
 
     [Header("UI Postproces Effect")]
@@ -68,9 +68,6 @@ public class PauseMenu : MonoBehaviour
 
     void UpdateOtherUI(bool b)
     {
-        foreach (GameObject g in otherUI)
-        {
-            g.SetActive(b);
-        }
+        otherUI.SetActive(b);
     }
 }

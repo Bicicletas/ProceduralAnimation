@@ -47,10 +47,10 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        Invoke(nameof (UpdateUI), .5f);
+        Invoke(nameof (UpdateScene), .5f);
     }
 
-    void UpdateUI()
+    void UpdateScene()
     {
         for (int i = 0; i < powerUp.Length; i++)
         {
@@ -61,6 +61,23 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
         DisplayBoostIndexText(jumpBoostAmount, 1);
         DisplayBoostIndexText(minimap, 2);
         DisplayBoostIndexText(flashlight, 3);
+
+        UpdateObjects(speedBoostAmount, objects[0]);
+        UpdateObjects(jumpBoostAmount, objects[1]);
+        UpdateObjects(minimap, objects[2]);
+        UpdateObjects(flashlight, objects[3]);
+    }
+
+    void UpdateObjects(int i, GameObject o)
+    {
+        if (i > 0)
+        {
+            o.SetActive(true);
+        }
+        else
+        {
+            o.SetActive(false);
+        }
     }
 
     void DisplayBoostIndexText(int amount, int i)
@@ -109,7 +126,7 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
         {
             itemAmount[2] -= powerUp.boostPrices;
 
-            PlayerController.instance.force += speedMult;
+            objects[0].SetActive(true);
 
             speedBoostAmount++;
 
@@ -125,7 +142,7 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
         {
             itemAmount[2] -= powerUp.boostPrices;
 
-            PlayerController.instance.jumpForce += jumpMult;
+            objects[1].SetActive(true);
 
             jumpBoostAmount++;
 
@@ -141,7 +158,7 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
         {
             itemAmount[1] -= powerUp.boostPrices;
 
-            objects[0].SetActive(true);
+            objects[2].SetActive(true);
 
             minimap++;
 
@@ -156,7 +173,7 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
         {
             itemAmount[1] -= powerUp.boostPrices;
 
-            objects[1].SetActive(true);
+            objects[3].SetActive(true);
 
             flashlight++;
 

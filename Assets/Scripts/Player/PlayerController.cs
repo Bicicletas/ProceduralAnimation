@@ -266,20 +266,20 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             if (isRunning)
             {
-                _playerRigidbody.AddForce(moveDirection.normalized * (force + ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount) * runningForceMulti, ForceMode.Force);
+                _playerRigidbody.AddForce(moveDirection.normalized * force * runningForceMulti, ForceMode.Force);
             }
             else
             {
-                _playerRigidbody.AddForce(moveDirection.normalized * (force + ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount) * normalForceMulti, ForceMode.Force);
+                _playerRigidbody.AddForce(moveDirection.normalized * force * normalForceMulti, ForceMode.Force);
             }
         }
         else if (isInWater)
         {
-            _playerRigidbody.AddForce(moveDirection.normalized * (force + ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount) * (normalForceMulti / dobleUnit) * airMultiplyer, ForceMode.Force);
+            _playerRigidbody.AddForce(moveDirection.normalized * force * (normalForceMulti / dobleUnit) * airMultiplyer, ForceMode.Force);
         }
         else
         {
-            _playerRigidbody.AddForce(moveDirection.normalized * (force + ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount) * (normalForceMulti - dobleUnit) * airMultiplyer, ForceMode.Force);
+            _playerRigidbody.AddForce(moveDirection.normalized * force * (normalForceMulti - dobleUnit) * airMultiplyer, ForceMode.Force);
         }
     }
 
@@ -289,6 +289,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (activateSpeedControl)
         {
             Vector3 flatVel = new Vector3(_playerRigidbody.velocity.x, 0, _playerRigidbody.velocity.z);
+
             float newForce = force / dobleUnit;
 
             if (flatVel.magnitude > newForce && !isRunning)
@@ -308,7 +309,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, 0f, _playerRigidbody.velocity.z);
 
-        _playerRigidbody.AddForce(Vector3.up * (jumpForce + ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount), ForceMode.Impulse);
+        _playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     //When called set the ability to jump to true
