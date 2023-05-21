@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     CinemachineFreeLook freeLookCam;
 
     [HideInInspector] public Rigidbody _playerRigidbody;
-    [HideInInspector] public Animator _playerAnimator;
+    public Animator _playerAnimator;
 
     [HideInInspector] public static bool canMove = true;
     [HideInInspector] public bool activateSpeedControl = true;
@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private bool canJump = true;
     public bool isGrounded = true;
+    public bool isFalling = true;
 
     [Header("Gravity Modifier\n")]
     public float normalGrav = -10f;
@@ -143,12 +144,19 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund)
             || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
 
+        isFalling = Physics.Raycast(transform.position, Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
+
         //Restricting the movement of the player with a boolean
         if (canMove)
         {
             MovePlayer();
         }
 
+        
+    }
+
+    private void LateUpdate()
+    {
         if (moveDirection != Vector3.zero)
         {
             _playerAnimator.SetBool("IsRunning", true);
@@ -183,15 +191,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             _playerAnimator.SetBool("IsFalling", false);
         }
 
-        if (canJump && !isGrounded)
+        if (!isFalling)
         {
             _playerAnimator.SetBool("IsFalling", true);
         }
-    }
-
-    private void LateUpdate()
-    {
-        
     }
 
     void CollectItem(Ray ray)
@@ -220,15 +223,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             if (canJump && isGrounded && !isInWater)
             {
-                _playerAnimator.SetBool("IsJumping", true);
-
-                _playerAnimator.Play("Jump");
-
                 canJump = false;
 
                 JumpMechanic();
 
                 Invoke(nameof(JumpReset), jumpCooldown);
+
+                _playerAnimator.SetBool("IsJumping", true);
+
+                _playerAnimator.Play("Jump");
             }
 
             if (isInWater)
@@ -311,10 +314,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, 0f, _playerRigidbody.velocity.z);
 
         _playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
-        _playerAnimator.Play("Jump");
-
-        _playerAnimator.SetBool("IsJumping", true);
     }
 
     //When called set the ability to jump to true

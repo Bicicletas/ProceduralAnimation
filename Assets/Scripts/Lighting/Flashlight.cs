@@ -23,20 +23,22 @@ public class Flashlight : MonoBehaviour
             }
         }
 
-        
 
-        float increment = Input.GetAxisRaw("Mouse ScrollWheel") * speed;
-
-        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f && value < 500)
+        if (flashlight.enabled)
         {
-            value += increment;
-        }
-        
-        if(Input.GetAxisRaw("Mouse ScrollWheel") < 0f && value > 20)
-        {
-            value += increment;
-        }
+            float increment = Input.GetAxisRaw("Mouse ScrollWheel") * speed;
 
-        flashlight.intensity = value;
+            if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f && value < 500)
+            {
+                value += increment;
+            }
+
+            if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f && value > 20)
+            {
+                value += increment;
+            }
+
+            flashlight.intensity = value;
+        }
     }
 }

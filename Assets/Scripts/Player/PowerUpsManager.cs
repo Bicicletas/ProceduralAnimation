@@ -2,10 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PowerUpsManager : MonoBehaviour
 {
+    [Header("UI Elements")]
+    [Space]
     [SerializeField] Image[] powerUpsImages;
+    [SerializeField] Image[] bgImages;
+    [SerializeField] TextMeshProUGUI[] amountTexts;
+
+    [Space]
+
+    [SerializeField] Color bgSelectedColor;
+    Color bgStartColor;
+
+    [Space(20)]
 
     [SerializeField] float speedBoostStartTime;
     [SerializeField] float jumpBoostStartTime;
@@ -25,24 +37,58 @@ public class PowerUpsManager : MonoBehaviour
     public float speedStartValue = 0;
     public float jumpStartValue = 0;
 
+    int powerUpSelected = 0;
+
     private void Start()
     {
         speedStartValue = PlayerController.instance.force;
-
         jumpStartValue = PlayerController.instance.jumpForce;
+
+        UpdateUI(0, ShopMenu.instance.speedBoostAmount);
+        UpdateUI(1, ShopMenu.instance.jumpBoostAmount);
+
+        bgStartColor = bgImages[0].color;
+
+        bgImages[powerUpSelected].color = bgSelectedColor;
+    }
+
+    void UpdateUI(int index, int amount)
+    {
+        amountTexts[index].text = "" + amount;
     }
 
     void Update()
     {
+        if (Input.GetAxisRaw("Mouse ScrollWheel") < 0 && powerUpSelected < powerUpsImages.Length - 1)
+        {
+            bgImages[powerUpSelected].color = bgStartColor;
+            powerUpSelected++;
+            bgImages[powerUpSelected].color = bgSelectedColor;
+        }
+        else if (Input.GetAxisRaw("Mouse ScrollWheel") > 0 && powerUpSelected > 0)
+        {
+            bgImages[powerUpSelected].color = bgStartColor;
+            powerUpSelected--;
+            bgImages[powerUpSelected].color = bgSelectedColor;
+        }
+
         if (ShopMenu.instance.speedBoostAmount > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1) && !speedBoostTimerOn)
+            if(amountTexts[0].text != "" + ShopMenu.instance.speedBoostAmount)
             {
-                PlayerController.instance.force += ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount;
+                UpdateUI(0, ShopMenu.instance.speedBoostAmount);
+            }
 
-                speedBoostCurrentTime = speedBoostStartTime;
+            if (powerUpSelected == 0)
+            {
+                if (Input.GetKeyDown(KeyCode.Q) && !speedBoostTimerOn)
+                {
+                    PlayerController.instance.force += ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount;
 
-                speedBoostTimerOn = true;
+                    speedBoostCurrentTime = speedBoostStartTime;
+
+                    speedBoostTimerOn = true;
+                }
             }
 
             if (speedBoostTimerOn)
@@ -73,23 +119,31 @@ public class PowerUpsManager : MonoBehaviour
 
         if (ShopMenu.instance.jumpBoostAmount > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha2) && !jumpBoostTimerOn)
+            if (amountTexts[1].text != "" + ShopMenu.instance.jumpBoostAmount)
             {
-                PlayerController.instance.jumpForce += ShopMenu.instance.jumpMult * ShopMenu.instance.jumpBoostAmount;
+                UpdateUI(1, ShopMenu.instance.jumpBoostAmount);
+            }
 
-                PlayerController.instance.JumpMechanic();
+            if (powerUpSelected == 1)
+            {
+                if (Input.GetKeyDown(KeyCode.Q) && !jumpBoostTimerOn)
+                {
+                    PlayerController.instance.jumpForce += ShopMenu.instance.jumpMult * ShopMenu.instance.jumpBoostAmount;
 
-                PlayerController.instance._playerAnimator.Play("Jump");
+                    PlayerController.instance.JumpMechanic();
 
-                PlayerController.instance._playerAnimator.SetBool("IsJumping", true);
+                    PlayerController.instance._playerAnimator.Play("Jump");
 
-                PlayerController.instance.jumpForce = jumpStartValue;
+                    PlayerController.instance._playerAnimator.SetBool("IsJumping", true);
 
-                powerUpsImages[1].color = Color.red;
+                    PlayerController.instance.jumpForce = jumpStartValue;
 
-                jumpBoostCurrentTime = jumpBoostStartTime;
+                    powerUpsImages[1].color = Color.red;
 
-                jumpBoostTimerOn = true;
+                    jumpBoostCurrentTime = jumpBoostStartTime;
+
+                    jumpBoostTimerOn = true;
+                }
             }
 
             if (jumpBoostTimerOn)
