@@ -97,7 +97,6 @@ public class ObjectGenerator : MonoBehaviour
         }
         else
         {
-            print("portal");
             instance.transform.localScale = new Vector3(scale, scale, scale);
         }
     }

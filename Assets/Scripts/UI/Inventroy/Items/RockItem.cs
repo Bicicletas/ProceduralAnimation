@@ -8,7 +8,7 @@ public class RockItem : Item
     }
     public override int MaxStacks()
     {
-        return 10;
+        return 5;
     }
     public override float GiveScale()
     {

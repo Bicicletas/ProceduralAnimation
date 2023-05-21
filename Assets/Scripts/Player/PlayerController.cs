@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     CinemachineFreeLook freeLookCam;
 
     [HideInInspector] public Rigidbody _playerRigidbody;
-    [SerializeField] Animator _playerAnimator;
+    [HideInInspector] public Animator _playerAnimator;
 
     [HideInInspector] public static bool canMove = true;
     [HideInInspector] public bool activateSpeedControl = true;
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private float dobleUnit = 2f;
     private float tenthOfUnit = .1f;
     private float normalForceMulti = 10f;
-    private float runningForceMulti = 14f;
+    private float runningForceMulti = 12f;
 
     private void Awake()
     {
@@ -136,6 +136,13 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     void FixedUpdate()
     {
+        //Raycast that checks if the player is touching the ground
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund)
+            || Physics.Raycast(new Vector3(transform.position.x + rayOffset, transform.position.y, transform.position.z), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund)
+            || Physics.Raycast(new Vector3(transform.position.x - rayOffset, transform.position.y, transform.position.z), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund)
+            || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund)
+            || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
+
         //Restricting the movement of the player with a boolean
         if (canMove)
         {
@@ -148,7 +155,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
             if (isRunning)
             {
-                _playerAnimator.speed = 1.4f;
+                _playerAnimator.speed = 1.1f;
             }
             else
             {
@@ -176,17 +183,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             _playerAnimator.SetBool("IsFalling", false);
         }
 
-        if (_playerAnimator.GetBool("IsRunning") && !isGrounded)
+        if (canJump && !isGrounded)
         {
             _playerAnimator.SetBool("IsFalling", true);
         }
+    }
 
-        //Raycast that checks if the player is touching the ground
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund) 
-            || Physics.Raycast(new Vector3(transform.position.x + rayOffset, transform.position.y, transform.position.z), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund) 
-            || Physics.Raycast(new Vector3(transform.position.x - rayOffset, transform.position.y, transform.position.z), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund) 
-            || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund)
-            || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - rayOffset), Vector3.down, playerHight * halfUnit + tenthOfUnit, whatIsGorund);
+    private void LateUpdate()
+    {
+        
     }
 
     void CollectItem(Ray ray)
@@ -301,15 +306,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     }
 
     //When called this function adds an upwards force to the player
-    void JumpMechanic()
+    public void JumpMechanic()
     {
-        _playerAnimator.Play("Jump");
-
-        _playerAnimator.SetBool("IsJumping", true);
-
         _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, 0f, _playerRigidbody.velocity.z);
 
         _playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+        _playerAnimator.Play("Jump");
+
+        _playerAnimator.SetBool("IsJumping", true);
     }
 
     //When called set the ability to jump to true

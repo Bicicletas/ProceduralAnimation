@@ -24,4 +24,4 @@ MonoBehaviour:
   childInstanceScale: 0
   minScale: 0.8
   maxScale: 0.8
-  randomScale: 20
+  randomScale: 18

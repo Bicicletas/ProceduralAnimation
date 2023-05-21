@@ -97,8 +97,6 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
     {
         data.speedBoostAmount = this.speedBoostAmount;
         data.jumpBoostAmount = this.jumpBoostAmount;
-        data.speedMult = this.speedMult;
-        data.jumpMult = this.jumpMult;
         data.minimap = this.minimap;
         data.flashlight = this.flashlight;
     }
@@ -107,8 +105,6 @@ public class ShopMenu : MonoBehaviour, IDataPersistence
     {
         this.speedBoostAmount = data.speedBoostAmount;
         this.jumpBoostAmount = data.jumpBoostAmount;
-        this.speedMult = data.speedMult;
-        this.jumpMult = data.jumpMult;
         this.minimap = data.minimap;
         this.flashlight = data.flashlight;
     }

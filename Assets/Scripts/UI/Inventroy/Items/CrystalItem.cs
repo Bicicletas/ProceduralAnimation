@@ -8,7 +8,7 @@ public class CrystalItem : Item
     }
     public override int MaxStacks()
     {
-        return 5;
+        return 15;
     }
     public override float GiveScale()
     {

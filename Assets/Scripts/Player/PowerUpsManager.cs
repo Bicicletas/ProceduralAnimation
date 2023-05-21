@@ -25,15 +25,19 @@ public class PowerUpsManager : MonoBehaviour
     public float speedStartValue = 0;
     public float jumpStartValue = 0;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        speedStartValue = PlayerController.instance.force;
+
+        jumpStartValue = PlayerController.instance.jumpForce;
+    }
+
     void Update()
     {
         if (ShopMenu.instance.speedBoostAmount > 0)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1) && !speedBoostTimerOn)
             {
-                speedStartValue = PlayerController.instance.force;
-
                 PlayerController.instance.force += ShopMenu.instance.speedMult * ShopMenu.instance.speedBoostAmount;
 
                 speedBoostCurrentTime = speedBoostStartTime;
@@ -71,9 +75,17 @@ public class PowerUpsManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha2) && !jumpBoostTimerOn)
             {
-                speedStartValue = PlayerController.instance.jumpForce;
-
                 PlayerController.instance.jumpForce += ShopMenu.instance.jumpMult * ShopMenu.instance.jumpBoostAmount;
+
+                PlayerController.instance.JumpMechanic();
+
+                PlayerController.instance._playerAnimator.Play("Jump");
+
+                PlayerController.instance._playerAnimator.SetBool("IsJumping", true);
+
+                PlayerController.instance.jumpForce = jumpStartValue;
+
+                powerUpsImages[1].color = Color.red;
 
                 jumpBoostCurrentTime = jumpBoostStartTime;
 
@@ -87,13 +99,6 @@ public class PowerUpsManager : MonoBehaviour
                 float fillAmount = jumpBoostCurrentTime / jumpBoostStartTime;
 
                 powerUpsImages[1].fillAmount = fillAmount;
-
-                if (jumpBoostCurrentTime <= jumpBoostStartTime / 2)
-                {
-                    PlayerController.instance.jumpForce = jumpStartValue;
-
-                    powerUpsImages[1].color = Color.red;
-                }
 
                 if (jumpBoostCurrentTime <= 0)
                 {

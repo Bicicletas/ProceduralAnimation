@@ -10,7 +10,7 @@ public class GoldItem : Item
     }
     public override int MaxStacks()
     {
-        return 2;
+        return 10;
     }
     public override float GiveScale()
     {
