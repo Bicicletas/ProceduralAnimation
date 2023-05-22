@@ -19,7 +19,6 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider brightnessSlider;
 
-    List<string> qualityOptions = new List<string>();
     List<string> resolutionOptions = new List<string>();
     List<string> screenOptions = new List<string>();
 
@@ -62,7 +61,7 @@ public class OptionsMenu : MonoBehaviour
         UpdateSliders();
     }
 
-    float CheckFloatKey(string key, float defaultVaule)
+    public static float CheckFloatKey(string key, float defaultVaule)
     {
         if (PlayerPrefs.HasKey(key))
         {
