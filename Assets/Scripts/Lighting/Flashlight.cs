@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Flashlight : MonoBehaviour
 {
+    [SerializeField] Vector2 minMaxValue;
 
     [SerializeField] Light flashlight;
     [SerializeField] float speed;
@@ -28,12 +29,12 @@ public class Flashlight : MonoBehaviour
         {
             float increment = Input.GetAxisRaw("Mouse ScrollWheel") * speed;
 
-            if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f && value < 500)
+            if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f && value < minMaxValue.y)
             {
                 value += increment;
             }
 
-            if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f && value > 20)
+            if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f && value > minMaxValue.x)
             {
                 value += increment;
             }

@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public Animator _playerAnimator;
     public Animator _rotAnimator;
 
+    Vector2 lastDirection;
+
     [HideInInspector] public static bool canMove = true;
     [HideInInspector] public bool activateSpeedControl = true;
    
@@ -26,8 +28,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] float rayOffset = .5f;
     [SerializeField] private float airMultiplyer;
 
-    [HideInInspector] public float horizontalInput;
-    [HideInInspector] public float verticalInput;
+    public float horizontalInput;
+    public float verticalInput;
 
     public bool isInWater = false;
 
@@ -164,6 +166,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         y = Mathf.Lerp(y, verticalInput, Time.deltaTime * rotSpeed);
 
         _rotAnimator.SetFloat("Horizontal", x);
+
         _rotAnimator.SetFloat("Vertical", y);
 
         if (moveDirection != Vector3.zero)
