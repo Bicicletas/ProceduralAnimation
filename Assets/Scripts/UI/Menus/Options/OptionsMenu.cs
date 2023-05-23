@@ -32,10 +32,16 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] float defaultSFXVolume = .5f;
     [SerializeField] float defaultBrightnessVolume = 1f;
 
+    [SerializeField] int defaultResValue = 0;
+    [SerializeField] int defaultScreenValue = 0;
+
     float maVolume = 0;
     float muVolume = 0;
     float sfxVolume = 0;
     float bValue = 0;
+
+    int resValue = 0;
+    int scValue = 0;
 
     [Header("Screen")]
     [Space]
@@ -50,15 +56,17 @@ public class OptionsMenu : MonoBehaviour
         muVolume = CheckFloatKey("muVolume", defaultMusicVolume);
         sfxVolume = CheckFloatKey("sfxVolume", defaultSFXVolume);
         bValue = CheckFloatKey("bVolume", defaultBrightnessVolume);
+
+        resValue = CheckFloatKey("resValue", defaultResValue);
+        scValue = CheckFloatKey("scValue", defaultScreenValue);
     }
 
     private void Start()
     {
-        //ResetDropdown(qualityOptions, qualityDropdown, 1);
-        ResetDropdown(resolutionOptions, resolutionDropdown, 2);
-        ResetDropdown(screenOptions, screenDropdown, 3);
+        ResetDropdown(resolutionOptions, resolutionDropdown, 1);
+        ResetDropdown(screenOptions, screenDropdown, 2);
 
-        UpdateSliders();
+        UpdateUI();
     }
 
     public static float CheckFloatKey(string key, float defaultVaule)
@@ -73,7 +81,19 @@ public class OptionsMenu : MonoBehaviour
         }
     }
 
-    void UpdateSliders()
+    public static int CheckFloatKey(string key, int defaultVaule)
+    {
+        if (PlayerPrefs.HasKey(key))
+        {
+            return PlayerPrefs.GetInt(key);
+        }
+        else
+        {
+            return defaultVaule;
+        }
+    }
+
+    void UpdateUI()
     {
         SetMasterVolume(maVolume);
         masterSlider.value = maVolume;
@@ -83,6 +103,11 @@ public class OptionsMenu : MonoBehaviour
         sfxSlider.value = sfxVolume;
         SetBrightness(bValue);
         brightnessSlider.value = bValue;
+
+        SetResolutionDropdown(resValue);
+        resolutionDropdown.value = resValue;
+        SetScreenDropdown(scValue);
+        screenDropdown.value = scValue;
     }
 
     void ResetDropdown(List<string> sList, TMP_Dropdown dp, int i)
@@ -90,17 +115,6 @@ public class OptionsMenu : MonoBehaviour
         switch (i)
         {
             case 1:
-
-                foreach (string s in QualitySettings.names)
-                {
-                    sList.Add(s);
-                }
-
-                dp.ClearOptions();
-                dp.AddOptions(sList);
-
-                break;
-            case 2:
 
                 foreach (Vector2 sr in supportedRes)
                 {
@@ -111,7 +125,7 @@ public class OptionsMenu : MonoBehaviour
                 dp.AddOptions(sList);
 
                 break;
-            case 3:
+            case 2:
 
                 FullScreenMode[] screenMode = { FullScreenMode.ExclusiveFullScreen, FullScreenMode.FullScreenWindow, FullScreenMode.MaximizedWindow, FullScreenMode.Windowed };
 
@@ -129,7 +143,9 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetResolutionDropdown(int res)
     {
-        Screen.SetResolution(Mathf.RoundToInt(supportedRes[res].x), Mathf.RoundToInt(supportedRes[res].x), false);
+        Screen.SetResolution(Mathf.RoundToInt(supportedRes[res].x), Mathf.RoundToInt(supportedRes[res].y), true);
+
+        PlayerPrefs.SetInt("resValue", res);
     }
 
     public void SetScreenDropdown(int type)
@@ -158,6 +174,8 @@ public class OptionsMenu : MonoBehaviour
 
                 break;
         }
+
+        PlayerPrefs.SetInt("scValue", type);
     }
 
     public void SetMasterVolume(float volume)

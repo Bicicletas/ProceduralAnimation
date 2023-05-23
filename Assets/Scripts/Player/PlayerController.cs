@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     [HideInInspector] public Rigidbody _playerRigidbody;
     public Animator _playerAnimator;
+    public Animator _rotAnimator;
 
     [HideInInspector] public static bool canMove = true;
     [HideInInspector] public bool activateSpeedControl = true;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public bool isInWater = false;
 
     public float lerpSpeed;
+    public float rotSpeed;
 
     public Vector3 moveDirection;
 
@@ -64,6 +66,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private float tenthOfUnit = .1f;
     private float normalForceMulti = 10f;
     private float runningForceMulti = 12f;
+
+    public float x;
+    public float y;
 
     private void Awake()
     {
@@ -151,12 +156,16 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             MovePlayer();
         }
-
-        
     }
 
     private void LateUpdate()
     {
+        x = Mathf.Lerp(x, horizontalInput, Time.deltaTime * rotSpeed);
+        y = Mathf.Lerp(y, verticalInput, Time.deltaTime * rotSpeed);
+
+        _rotAnimator.SetFloat("Horizontal", x);
+        _rotAnimator.SetFloat("Vertical", y);
+
         if (moveDirection != Vector3.zero)
         {
             _playerAnimator.SetBool("IsRunning", true);
