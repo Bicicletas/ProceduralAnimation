@@ -240,10 +240,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 JumpMechanic();
 
                 Invoke(nameof(JumpReset), jumpCooldown);
-
-                _playerAnimator.SetBool("IsJumping", true);
-
-                _playerAnimator.Play("Jump");
             }
 
             if (isInWater)
@@ -323,6 +319,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     //When called this function adds an upwards force to the player
     public void JumpMechanic()
     {
+        _playerAnimator.SetBool("IsJumping", true);
+
+        _playerAnimator.Play("Jump");
+
         _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, 0f, _playerRigidbody.velocity.z);
 
         _playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
