@@ -115,8 +115,8 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0.6509804, g: 0.5647059, b: 0.078431375, a: 1}
-    - _Color2: {r: 1, g: 1, b: 1, a: 1}
+    - _Color1: {r: 1, g: 1, b: 1, a: 1}
+    - _Color2: {r: 0.36863655, g: 0.5724443, b: 0.7169812, a: 1}
     - _DisolveSpeed: {r: -0.5, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GroundColor: {r: 0.735849, g: 0.46952868, b: 0.26726586, a: 0}

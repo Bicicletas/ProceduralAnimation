@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [HideInInspector] public Rigidbody _playerRigidbody;
     public Animator _playerAnimator;
     public Animator _rotAnimator;
+    public AudioSource _playerAudioSourceOneShot;
+    public AudioSource _playerAudioSource;
 
     Vector2 lastDirection;
 
@@ -127,6 +129,21 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 Physics.gravity = new Vector3(0, currentGrav * 2, 0);
             }
 
+            if (moveDirection != Vector3.zero)
+            {
+                if (isGrounded)
+                {
+                    _playerAudioSource.mute = false;
+                }
+                else if (!isGrounded)
+                {
+                    _playerAudioSource.mute = true;
+                }
+            }
+            else
+            {
+                _playerAudioSource.mute = true;
+            }
 
             if (!isInWater)
             {
@@ -319,6 +336,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     //When called this function adds an upwards force to the player
     public void JumpMechanic()
     {
+        AudioManager.instance.PlayOneShot(_playerAudioSourceOneShot, 1);
+
         _playerAnimator.SetBool("IsJumping", true);
 
         _playerAnimator.Play("Jump");
